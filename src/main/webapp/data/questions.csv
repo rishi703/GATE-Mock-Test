@@ -1,0 +1,501 @@
+﻿id,subject,topic,question,option1,option2,option3,option4,answer,difficulty,explanation
+1,Engineering Mathematics,Linear Algebra,The determinant of an identity matrix of order n is?,0,1,n,-1,2,Easy,The determinant of an identity matrix is 1.
+2,Engineering Mathematics,Linear Algebra,"If A is a 3×3 matrix and det(A)=5, then det(2A) is?",10,20,40,80,4,Easy,"For a 3×3 matrix, det(2A)=2^3 det(A)=40."
+3,Engineering Mathematics,Linear Algebra,A square matrix is singular if its determinant is?,1,-1,0,Infinity,3,Easy,A matrix is singular exactly when its determinant is zero.
+4,Engineering Mathematics,Linear Algebra,The rank of a zero matrix is?,0,1,Number of rows,Number of columns,1,Easy,"All rows and columns are zero, so the rank is zero."
+5,Engineering Mathematics,Linear Algebra,Eigenvalues of a triangular matrix are the entries on its?,First row,Main diagonal,Last column,Anti-diagonal,2,Easy,The eigenvalues of a triangular matrix are its diagonal entries.
+6,Engineering Mathematics,Linear Algebra,"If A is invertible, then det(A) is?",0,Nonzero,Always 1,Always -1,2,Easy,An invertible matrix has a nonzero determinant.
+7,Engineering Mathematics,Linear Algebra,"For a real symmetric matrix, eigenvalues are always?",Real,Purely imaginary,Zero,Complex non-real,1,Medium,Every real symmetric matrix has only real eigenvalues.
+8,Engineering Mathematics,Linear Algebra,Two vectors are linearly dependent if one can be expressed as?,A nonlinear function of the other,A scalar multiple of the other,Their sum is always zero,Their dot product is one,2,Easy,Two nonzero vectors are dependent when one is a scalar multiple of the other.
+9,Engineering Mathematics,Linear Algebra,The transpose of a product AB is?,AᵀBᵀ,BᵀAᵀ,AB,BA,2,Easy,(AB)ᵀ = BᵀAᵀ.
+10,Engineering Mathematics,Linear Algebra,"If A is orthogonal, then AᵀA equals?",0,A,I,A²,3,Easy,"For an orthogonal matrix, AᵀA=I."
+11,Engineering Mathematics,Calculus,The derivative of x^n with respect to x is?,x^(n-1),nx^(n-1),n x^n,x^n/n,2,Easy,"By the power rule, d(x^n)/dx = n x^(n-1)."
+12,Engineering Mathematics,Calculus,The derivative of sin x is?,cos x,-cos x,sin x,-sin x,1,Easy,The derivative of sin x is cos x.
+13,Engineering Mathematics,Calculus,The derivative of e^x is?,x e^(x-1),e^x,ln x,1/x,2,Easy,The exponential function e^x is its own derivative.
+14,Engineering Mathematics,Calculus,The integral of 1/x dx is?,x,ln|x| + C,1/x² + C,e^x + C,2,Easy,The antiderivative of 1/x is ln|x| + C.
+15,Engineering Mathematics,Calculus,"If f'(x)>0 throughout an interval, f is?",Decreasing,Constant,Increasing,Periodic,3,Easy,A positive derivative indicates that the function is increasing.
+16,Engineering Mathematics,Calculus,A local maximum of a differentiable function can occur where f'(x) is?,Always positive,Always negative,Zero,Undefined only,3,Medium,A differentiable interior local extremum has derivative zero.
+17,Engineering Mathematics,Calculus,The second derivative test for a local minimum requires f''(c) to be?,Negative,Positive,Zero always,Undefined,2,Medium,"If f'(c)=0 and f''(c)>0, the point is a local minimum."
+18,Engineering Mathematics,Calculus,The limit of sin x / x as x approaches 0 is?,0,1,Infinity,Does not exist,2,Easy,The standard limit lim(x→0) sin x/x is 1.
+19,Engineering Mathematics,Calculus,The partial derivative of x²y with respect to x is?,2xy,x²,2x,y²,1,Easy,Treating y as constant gives 2xy.
+20,Engineering Mathematics,Calculus,A function is continuous at x=a if its limit at a equals?,0,f(a),1,a,2,Easy,Continuity requires lim(x→a)f(x)=f(a).
+21,Engineering Mathematics,Differential Equations,The order of a differential equation is the highest order of?,Coefficient,Derivative present,Variable,Constant,2,Easy,The order is the highest derivative appearing in the equation.
+22,Engineering Mathematics,Differential Equations,The solution of dy/dx = ky is of the form?,kx,Ce^(kx),C+kx,ln(kx),2,Easy,The exponential solution is y=Ce^(kx).
+23,Engineering Mathematics,Differential Equations,A first-order linear differential equation has the standard form?,dy/dx + P(x)y = Q(x),y''+y=0,xy''=1,dy/dx=y² only,1,Easy,The standard first-order linear form is y' + P(x)y = Q(x).
+24,Engineering Mathematics,Differential Equations,"For y''+ω²y=0, the solutions involve?",Exponentials only,Sine and cosine,Logarithms,Polynomials only,2,Easy,"The characteristic roots are ±iω, giving sine and cosine terms."
+25,Engineering Mathematics,Differential Equations,The integrating factor for y'+P(x)y=Q(x) is?,P(x),e^(∫P(x)dx),∫Qdx,Q/P,2,Medium,The integrating factor is exp(∫P(x)dx).
+26,Engineering Mathematics,Probability,The probability of an impossible event is?,0,1,-1,0.5,1,Easy,An impossible event has probability zero.
+27,Engineering Mathematics,Probability,"For mutually exclusive events A and B, P(A∩B) is?",1,P(A)+P(B),0,P(A)P(B),3,Easy,Mutually exclusive events cannot occur together.
+28,Engineering Mathematics,Probability,"For independent events A and B, P(A∩B) equals?",P(A)+P(B),P(A)P(B),P(A)-P(B),0,2,Easy,Independence gives P(A∩B)=P(A)P(B).
+29,Engineering Mathematics,Probability,The expected value of a fair six-sided die is?,3,3.5,4,6,2,Easy,The mean is (1+2+3+4+5+6)/6 = 3.5.
+30,Engineering Mathematics,Probability,The variance of a constant random variable is?,0,1,The constant,Infinity,1,Easy,"A constant has no variation, so its variance is zero."
+31,Engineering Mathematics,Probability,A Bernoulli random variable takes how many possible values?,1,2,3,4,2,Easy,A Bernoulli variable takes values 0 and 1.
+32,Engineering Mathematics,Probability,"For a binomial distribution with n trials and success probability p, the mean is?",np,n/p,p/n,n(1-p),1,Easy,The binomial mean is np.
+33,Engineering Mathematics,Probability,The variance of a Bernoulli(p) variable is?,p,1-p,p(1-p),p²,3,Easy,Var(X)=p(1-p).
+34,Engineering Mathematics,Probability,The probability density function integrates over its entire range to?,0,1,Mean,Variance,2,Easy,A probability density integrates to total probability 1.
+35,Engineering Mathematics,Probability,Conditional probability P(A|B) is defined as?,P(A)/P(B),P(A∩B)/P(B),P(B)/P(A),P(A∪B),2,Medium,"For P(B)>0, P(A|B)=P(A∩B)/P(B)."
+36,Engineering Mathematics,Statistics,The arithmetic mean is most affected by?,Outliers,Order of data,Units only,Median,1,Easy,Extreme values can significantly change the arithmetic mean.
+37,Engineering Mathematics,Statistics,"The median of 1,3,5,7,9 is?",3,5,7,9,2,Easy,The middle value is 5.
+38,Engineering Mathematics,Statistics,Standard deviation is the square root of?,Mean,Variance,Median,Mode,2,Easy,Standard deviation is sqrt(variance).
+39,Engineering Mathematics,Statistics,Correlation coefficient lies between?,0 and 1 only,-1 and 1,-2 and 2,1 and infinity,2,Easy,Pearson correlation ranges from -1 to +1.
+40,Engineering Mathematics,Statistics,A correlation coefficient of 0 indicates?,Perfect positive relation,No linear correlation,Perfect negative relation,Equal means,2,Medium,"Zero Pearson correlation indicates no linear relationship, though nonlinear dependence may exist."
+41,Engineering Mathematics,Discrete Mathematics,A set with n elements has how many subsets?,n,2n,2^n,n²,3,Easy,"Each element can be included or excluded, giving 2^n subsets."
+42,Engineering Mathematics,Discrete Mathematics,"A relation that is reflexive, symmetric and transitive is an?",Equivalence relation,Partial function,Injective relation,Empty relation,1,Easy,These three properties define an equivalence relation.
+43,Engineering Mathematics,Discrete Mathematics,A graph with no cycles is called?,Complete graph,Tree,Bipartite graph,Multigraph,2,Easy,A connected acyclic graph is a tree.
+44,Engineering Mathematics,Discrete Mathematics,A tree with n vertices has how many edges?,n,n-1,n+1,2n,2,Easy,Every tree with n vertices has exactly n−1 edges.
+45,Engineering Mathematics,Discrete Mathematics,The number of edges in a complete graph K_n is?,n,n-1,n(n-1)/2,n²,3,Medium,"Every pair of vertices contributes one edge, giving n(n−1)/2."
+46,Engineering Mathematics,Discrete Mathematics,A graph is bipartite if its vertices can be divided into?,Two independent sets,Three equal sets,Cycles only,Cliques only,1,Easy,A bipartite graph has two disjoint vertex sets with edges only between the sets.
+47,Engineering Mathematics,Discrete Mathematics,The complement of a proposition P is?,P,¬P,P∧P,P∨P,2,Easy,The logical complement of P is NOT P.
+48,Engineering Mathematics,Discrete Mathematics,A proposition that is true for every truth assignment is a?,Contradiction,Tautology,Contingency,Predicate,2,Easy,A tautology is always true.
+49,Engineering Mathematics,Discrete Mathematics,"If A⊆B and B⊆A, then?",A and B are disjoint,A=B,A∩B=∅,A has more elements,2,Easy,Mutual inclusion means the sets are equal.
+50,Engineering Mathematics,Numerical Methods,Newton-Raphson method is primarily used to find?,Matrix rank,Roots of equations,Graph degree,Probability,2,Easy,Newton-Raphson iteratively approximates roots of equations.
+51,Digital Logic,Boolean Algebra,The complement of A + B is?,A'+B',A'B',AB,A+B,2,Easy,"By De Morgan's law, (A+B)'=A'B'."
+52,Digital Logic,Boolean Algebra,The complement of AB is?,A'B',A'+B',AB,A+B,2,Easy,"By De Morgan's law, (AB)'=A'+B'."
+53,Digital Logic,Boolean Algebra,A + A equals?,0,1,A,A',3,Easy,Idempotent law gives A+A=A.
+54,Digital Logic,Boolean Algebra,A·A equals?,0,1,A,A',3,Easy,Idempotent law gives A·A=A.
+55,Digital Logic,Boolean Algebra,A + 1 equals?,0,1,A,A',2,Easy,OR with 1 is always 1.
+56,Digital Logic,Boolean Algebra,A·0 equals?,0,1,A,A',1,Easy,AND with 0 is always 0.
+57,Digital Logic,Boolean Algebra,A + AB simplifies to?,A,B,AB,A+B,1,Easy,"By absorption, A+AB=A."
+58,Digital Logic,Boolean Algebra,A(A+B) simplifies to?,A,B,AB,A+B,1,Easy,"By absorption, A(A+B)=A."
+59,Digital Logic,Boolean Algebra,XOR output is 1 when inputs are?,Equal,Different,Both zero,Both one,2,Easy,XOR is 1 when inputs differ.
+60,Digital Logic,Boolean Algebra,XNOR output is 1 when inputs are?,Different,Equal,Only one is 1,Both are zero only,2,Easy,XNOR is the equality detector.
+61,Digital Logic,Logic Gates,A NOT gate has how many inputs?,0,1,2,3,2,Easy,A NOT gate has one input.
+62,Digital Logic,Logic Gates,A NAND gate is an AND gate followed by?,OR,NOT,XOR,Buffer,2,Easy,NAND is NOT of AND.
+63,Digital Logic,Logic Gates,A NOR gate is an OR gate followed by?,AND,NOT,XOR,Buffer,2,Easy,NOR is NOT of OR.
+64,Digital Logic,Logic Gates,Which gate is called a universal gate?,XOR,NAND,XNOR,Buffer,2,Easy,NAND alone can implement any Boolean function.
+65,Digital Logic,Logic Gates,Which other gate is universal?,NOR,XOR,AND,NOT,1,Easy,NOR is also functionally complete.
+66,Digital Logic,Combinational Circuits,A half adder adds?,One bit,Two bits,Three bits,Four bits,2,Easy,A half adder adds two one-bit inputs.
+67,Digital Logic,Combinational Circuits,A full adder has how many input bits?,1,2,3,4,3,Easy,"A full adder has A, B and carry-in."
+68,Digital Logic,Combinational Circuits,A half adder produces?,Sum only,Carry only,Sum and carry,Borrow only,3,Easy,A half adder has sum and carry outputs.
+69,Digital Logic,Combinational Circuits,A multiplexer selects?,One input from many,Many outputs from one,Only two inputs,No input,1,Easy,A multiplexer selects one of several inputs.
+70,Digital Logic,Combinational Circuits,A 4-to-1 multiplexer requires how many select lines?,1,2,3,4,2,Easy,2 select bits choose among 4 inputs.
+71,Digital Logic,Combinational Circuits,A decoder converts n input lines into at most?,n outputs,2n outputs,2^n outputs,n² outputs,3,Easy,An n-to-2^n decoder has up to 2^n outputs.
+72,Digital Logic,Combinational Circuits,An encoder performs the reverse operation of a?,Decoder,Adder,Comparator,Latch,1,Easy,An encoder converts one active input into a binary code.
+73,Digital Logic,Combinational Circuits,A comparator is used to compare?,Binary magnitudes,Clock frequency,Memory size,Power,1,Easy,A digital comparator compares binary numbers.
+74,Digital Logic,Sequential Circuits,A latch is generally?,Edge-triggered,Level-sensitive,Always asynchronous,Only combinational,2,Easy,A latch responds while its enable level is active.
+75,Digital Logic,Sequential Circuits,A flip-flop is generally?,Level-sensitive,Edge-triggered,Purely combinational,Analog,2,Easy,Flip-flops commonly change state on a clock edge.
+76,Digital Logic,Sequential Circuits,A D flip-flop is often called a?,Delay flip-flop,Data flip-flop,Decoder,Divider only,2,Easy,D stands for data/delay.
+77,Digital Logic,Sequential Circuits,A JK flip-flop toggles when J and K are?,00,01,10,11,4,Easy,J=K=1 causes toggling.
+78,Digital Logic,Sequential Circuits,An SR flip-flop has inputs called?,Set and Reset,Shift and Rotate,Select and Read,Sum and Result,1,Easy,SR means Set-Reset.
+79,Digital Logic,Sequential Circuits,A counter is a sequential circuit used to?,Store text,Count clock pulses,Perform division only,Decode ASCII,2,Easy,Counters advance through states on clock pulses.
+80,Digital Logic,Sequential Circuits,A register is a group of?,Logic gates only,Flip-flops,Multiplexers only,Decoders only,2,Easy,Registers store multiple bits using flip-flops.
+81,Digital Logic,Sequential Circuits,A shift register is used to?,Shift stored bits,Multiply analog signals,Decode instructions,Generate HTML,1,Easy,Shift registers move stored bits left or right.
+82,Digital Logic,Number Systems,Binary 1010 in decimal is?,8,10,12,14,2,Easy,1010₂ = 8+2 = 10.
+83,Digital Logic,Number Systems,Hexadecimal digit F represents decimal?,10,12,15,16,3,Easy,F in hexadecimal is 15.
+84,Digital Logic,Number Systems,Binary 1111 equals hexadecimal?,A,B,E,F,4,Easy,1111₂ corresponds to hexadecimal F.
+85,Digital Logic,Number Systems,Two's complement is commonly used to represent?,Unsigned only,Signed integers,Floating point only,ASCII,2,Easy,Two's complement represents signed binary integers.
+86,Digital Logic,Number Systems,The range of an n-bit unsigned number is?,-2^n to 2^n,0 to 2^n-1,-2^(n-1) to 2^(n-1)-1,1 to 2^n,2,Easy,Unsigned n-bit values range from 0 through 2^n−1.
+87,Digital Logic,Number Systems,The range of an n-bit two's complement integer is?,0 to 2^n-1,-2^(n-1) to 2^(n-1)-1,-2^n to 2^n,1 to 2^(n-1),2,Medium,Two's complement uses one sign bit and has asymmetric endpoints.
+88,Digital Logic,Karnaugh Maps,K-map is primarily used for?,Program compilation,Boolean minimization,Memory allocation,Packet routing,2,Easy,Karnaugh maps simplify Boolean expressions.
+89,Digital Logic,Karnaugh Maps,Adjacent cells in a K-map differ in?,All variables,Exactly one variable,Two variables always,No variables,2,Easy,Adjacent Gray-code cells differ in one variable.
+90,Digital Logic,Karnaugh Maps,Groups in a K-map normally contain how many cells?,Any number,Powers of two,Prime numbers only,Odd numbers,2,Easy,"Valid groups contain 1,2,4,8,... cells."
+91,Digital Logic,Karnaugh Maps,A don't-care condition may be treated as?,Only 0,Only 1,0 or 1 for simplification,Always an error,3,Medium,Don't-care entries can be chosen as 0 or 1 to simplify logic.
+92,Digital Logic,Memory,RAM is generally?,Volatile,Nonvolatile,Read-only,Optical,1,Easy,RAM loses stored data when power is removed.
+93,Digital Logic,Memory,ROM is generally used for?,Temporary variables,Persistent fixed data,CPU registers,Cache only,2,Easy,ROM stores data that should persist without power.
+94,Digital Logic,Memory,SRAM is commonly used for?,Main storage disks,Cache memory,Optical media,Tape,2,Easy,SRAM is fast and commonly used for CPU caches.
+95,Digital Logic,Memory,DRAM stores each bit using a?,Capacitor-based cell,Magnetic disk,Flip-flop only,Laser,1,Medium,DRAM cells use a transistor and capacitor.
+96,Digital Logic,Timing,Setup time is the minimum time data must be stable?,After clock edge,Before clock edge,During reset only,After power off,2,Medium,Setup time specifies stability before the active clock edge.
+97,Digital Logic,Timing,Hold time is the minimum time data must remain stable?,Before the edge,After the active edge,Only before reset,Before power is applied,2,Medium,Hold time specifies stability after the active clock edge.
+98,Digital Logic,Timing,Propagation delay is the time between?,Input change and output response,Two power cycles,Two resets,Two programs,1,Easy,Propagation delay measures signal travel through logic.
+99,Digital Logic,Logic Gates,A buffer gate produces an output that is?,Same as input,Always zero,Always one,Complement of input,1,Easy,A buffer reproduces its input without inversion.
+100,Digital Logic,Sequential Circuits,A synchronous counter changes state in response to?,A common clock,Random input changes,Only reset,No signal,1,Easy,Synchronous counters use a common clock for state changes.
+101,Computer Organization,CPU,The ALU performs?,Arithmetic and logical operations,Only memory storage,Only I/O,Program loading only,1,Easy,ALU performs arithmetic and logical operations.
+102,Computer Organization,CPU,The program counter stores the address of?,Current/next instruction,Top of stack only,Data cache,I/O port,1,Easy,PC tracks the instruction address to fetch.
+103,Computer Organization,CPU,The instruction register stores?,Current instruction,Next data value,Stack pointer,Cache tag,1,Easy,IR holds the instruction currently being decoded/executed.
+104,Computer Organization,CPU,The stack pointer points to?,Top of stack,First instruction,Cache line,ALU result,1,Easy,SP identifies the top of the current stack.
+105,Computer Organization,CPU,The control unit primarily generates?,Control signals,Arithmetic results,Disk sectors,Network packets,1,Easy,The control unit coordinates CPU operations using control signals.
+106,Computer Organization,CPU,Registers are generally faster than?,CPU cache,Main memory,ALU,Clock,2,Easy,Registers are the fastest storage visible to the CPU and are faster than main memory.
+107,Computer Organization,Instruction Set,An instruction opcode specifies?,Operation to perform,Memory size,Clock frequency,Register width only,1,Easy,Opcode identifies the operation encoded by an instruction.
+108,Computer Organization,Instruction Set,Immediate addressing stores operand value?,In the instruction,Only in RAM,Only in cache,In another CPU,1,Easy,Immediate mode embeds the operand value in the instruction.
+109,Computer Organization,Instruction Set,"In register addressing, the operand is in a?",Register,Disk,Network,ROM only,1,Easy,Register addressing specifies a CPU register as the operand.
+110,Computer Organization,Instruction Set,An instruction with zero address fields is typical of a?,Stack architecture,Accumulator architecture only,Vector processor only,GPU only,1,Medium,Stack machines can use zero-address instructions because operands are implicit on the stack.
+111,Computer Organization,Memory,Cache memory exploits?,Locality of reference,Randomness,Network routing,Compilation,1,Easy,Caches exploit temporal and spatial locality.
+112,Computer Organization,Memory,Temporal locality means recently used data is likely to be?,Used again soon,Deleted immediately,Never used,Moved to disk,1,Easy,Temporal locality predicts near-future reuse.
+113,Computer Organization,Memory,Spatial locality means nearby addresses are likely to be?,Accessed soon,Invalid,Encrypted,Unused,1,Easy,Spatial locality predicts nearby memory accesses.
+114,Computer Organization,Memory,A cache hit occurs when requested data is?,Found in cache,Only on disk,Not found anywhere,In ROM,1,Easy,A hit means the requested block is present in cache.
+115,Computer Organization,Memory,A cache miss means requested data is?,Not in cache,Always corrupted,In a register,Already decoded,1,Easy,A miss requires fetching data from a lower memory level.
+116,Computer Organization,Memory,Direct-mapped cache maps a memory block to?,Exactly one cache line,Any line,Two lines only,No line,1,Easy,Each block has one possible cache location in direct mapping.
+117,Computer Organization,Memory,Fully associative cache allows a block to be placed?,Anywhere in cache,Only one line,Only even lines,Only first line,1,Easy,Fully associative mapping permits any cache line.
+118,Computer Organization,Memory,A cache tag identifies?,Which memory block is stored,Clock speed,Instruction length,I/O device,1,Medium,Tags distinguish which memory block occupies a cache line.
+119,Computer Organization,Memory,Virtual memory uses disk to extend?,Logical memory space,CPU registers,ALU size,Clock rate,1,Easy,Disk-backed virtual memory extends the address space beyond physical RAM.
+120,Computer Organization,Memory,A page is a fixed-size unit of?,Virtual memory,CPU instruction only,Disk partition only,Register file,1,Easy,Paging divides virtual and physical memory into fixed-size pages/frames.
+121,Computer Organization,I/O,DMA stands for?,Direct Memory Access,Dynamic Memory Allocation,Digital Machine Arithmetic,Data Mode Access,1,Easy,DMA allows devices to transfer data to/from memory with limited CPU involvement.
+122,Computer Organization,I/O,An interrupt is a signal that requests?,CPU attention,Disk formatting,Compilation,Memory deletion,1,Easy,Interrupts notify the processor that an event needs attention.
+123,Computer Organization,I/O,A device controller provides an interface between?,CPU/memory and device,Two compilers,Two disks only,Cache and ALU,1,Easy,Controllers manage communication with peripheral devices.
+124,Computer Organization,I/O,Polling means the CPU?,Repeatedly checks device status,Never checks devices,Uses only interrupts,Disables all I/O,1,Easy,Polling repeatedly tests a device status register.
+125,Computer Organization,Arithmetic,"In unsigned binary addition, overflow occurs when?",Result exceeds representable range,Result is zero,Operands are equal,Both operands are one only,1,Easy,Overflow means the true result cannot be represented in the available bits.
+126,Computer Organization,Arithmetic,Booth's algorithm is used for?,Signed binary multiplication,Sorting,Cache mapping,Instruction decoding,1,Medium,Booth's algorithm efficiently multiplies signed binary numbers.
+127,Computer Organization,Arithmetic,Restoring division is an algorithm for?,Binary division,Addition,Instruction fetch,Cache replacement,1,Easy,Restoring division computes quotient and remainder in binary.
+128,Computer Organization,Arithmetic,"A floating-point number commonly consists of sign, exponent and?",Mantissa/significand,Opcode,Stack pointer,Page table,1,Easy,"Floating-point representation contains sign, exponent and significand."
+129,Computer Organization,Arithmetic,IEEE 754 is a standard for?,Floating-point arithmetic,Network protocols,File systems,Compilers,1,Easy,IEEE 754 defines binary and decimal floating-point formats and operations.
+130,Computer Organization,Pipelining,Pipelining improves?,Instruction throughput,Only memory capacity,Disk size,Program correctness,1,Easy,Pipelining overlaps instruction stages to improve throughput.
+131,Computer Organization,Pipelining,A pipeline hazard is a condition that?,Prevents ideal pipeline operation,Always improves speed,Increases RAM size,Changes source code,1,Easy,Hazards cause stalls or other actions that prevent ideal overlap.
+132,Computer Organization,Pipelining,A data hazard occurs due to?,Instruction data dependencies,Power failure,Disk fragmentation,Network delay,1,Easy,Data hazards arise when instructions depend on results of earlier instructions.
+133,Computer Organization,Pipelining,A control hazard is mainly caused by?,Branches,Arithmetic addition,Loads only,Registers,1,Easy,Branches can change the next instruction address and create control hazards.
+134,Computer Organization,Pipelining,Forwarding helps reduce?,Data hazard stalls,Memory capacity,Instruction size,Disk latency,1,Medium,Forwarding sends results directly between pipeline stages to reduce stalls.
+135,Computer Organization,Performance,CPI stands for?,Cycles Per Instruction,Commands Per Input,Cache Per Instruction,Clock Per Interrupt,1,Easy,CPI is the average number of clock cycles per instruction.
+136,Computer Organization,Performance,"CPU execution time is related to instruction count, CPI and?",Clock cycle time,Disk size,Cache tag,File name,1,Easy,CPU time = instruction count × CPI × clock cycle time.
+137,Computer Organization,Performance,A lower CPI generally means?,Fewer cycles per instruction,More memory,Slower clock,More instructions,1,Easy,Lower CPI means fewer clock cycles are needed per instruction.
+138,Computer Organization,Performance,Speedup is the ratio of old execution time to?,New execution time,Instruction count,Clock rate,Cache size,1,Easy,Speedup = old time/new time.
+139,Computer Organization,Performance,Amdahl's law limits overall speedup based on the?,Fraction improved and its speedup,RAM capacity only,Instruction length,Disk type,1,Medium,Amdahl's law accounts for the unimproved portion of execution.
+140,Computer Organization,Bus,A data bus carries?,Data,Only addresses,Only control signals,Clock only,1,Easy,The data bus transfers data between components.
+141,Computer Organization,Bus,An address bus carries?,Memory/I/O addresses,Data values,Instructions only,Clock pulses,1,Easy,Address lines specify locations to access.
+142,Computer Organization,Bus,A control bus carries?,Control signals,Only data,Only addresses,User files,1,Easy,"Control buses carry read, write and other coordination signals."
+143,Computer Organization,Storage,SSD storage uses?,Flash memory,Magnetic platters,Paper tape,Optical film,1,Easy,SSDs use nonvolatile flash memory.
+144,Computer Organization,Storage,HDDs store data using?,Magnetic recording,Only capacitors,Flash cells,Optical gates,1,Easy,Hard disk drives use magnetic platters.
+145,Computer Organization,Storage,RAID is primarily used to improve?,Storage reliability/performance,CPU instruction count,Compiler syntax,Clock frequency,1,Medium,"RAID combines disks to improve reliability, performance, or both depending on level."
+146,Computer Organization,Architecture,RISC architectures generally emphasize?,Simple instructions,Very complex instructions only,No registers,Only stack operations,1,Easy,RISC designs favor simple instructions and regular formats.
+147,Computer Organization,Architecture,CISC architectures generally allow?,Complex instructions,No addressing modes,Only one instruction,No memory access,1,Easy,CISC architectures provide richer and more complex instruction sets.
+148,Computer Organization,Architecture,The Von Neumann architecture stores instructions and data in?,A common memory,Separate mandatory memories,Only registers,Only cache,1,Easy,Von Neumann systems use shared memory for instructions and data.
+149,Computer Organization,Memory,The memory hierarchy is generally organized with fastest storage closest to the?,CPU,Disk,Network,Printer,1,Easy,Registers and caches are closest to the CPU.
+150,Computer Organization,Instruction Set,Load and store instructions are commonly associated with?,Memory access,Only arithmetic,Only branching,Interrupt handling,1,Easy,Load reads memory and store writes memory.
+151,Programming and Data Structures,C Programming,Which symbol terminates a C statement?,.,:,;,#,3,Easy,C statements are normally terminated with a semicolon.
+152,Programming and Data Structures,C Programming,Array indexing in C starts at?,0,1,-1,Depends on compiler,1,Easy,The first array element has index zero.
+153,Programming and Data Structures,C Programming,The sizeof operator returns size in?,Bytes,Bits only,Words always,Kilobytes,1,Easy,sizeof returns the size in bytes.
+154,Programming and Data Structures,C Programming,A pointer stores?,Address,Only integer value,Character only,Instruction opcode,1,Easy,A pointer variable stores a memory address.
+155,Programming and Data Structures,C Programming,The address-of operator in C is?,*,&,#,@,2,Easy,& obtains the address of an object.
+156,Programming and Data Structures,C Programming,The dereference operator is?,*,&,%,$,1,Easy,* accesses the value stored at a pointed-to address.
+157,Programming and Data Structures,C Programming,Which keyword declares a constant variable?,const,fixed,constant,immutable,1,Easy,const prevents modification through that identifier.
+158,Programming and Data Structures,C Programming,A function that calls itself is?,Recursive,Iterative,Static,Virtual,1,Easy,A recursive function invokes itself.
+159,Programming and Data Structures,C Programming,Which storage class retains a local variable's value between calls?,auto,static,register,extern,2,Medium,A static local variable retains its value across calls.
+160,Programming and Data Structures,C Programming,The logical AND operator is?,&,&&,||,!,2,Easy,&& is logical AND; & is bitwise AND.
+161,Programming and Data Structures,Arrays,Accessing an array element by index takes?,O(1),O(log n),O(n),O(n²),1,Easy,Direct indexing uses address arithmetic and takes constant time.
+162,Programming and Data Structures,Linked Lists,A singly linked-list node contains data and?,One next pointer,Two previous pointers,A queue,A stack only,1,Easy,Each node has data and a pointer to the next node.
+163,Programming and Data Structures,Linked Lists,Insertion at the beginning of a linked list is?,O(1),O(log n),O(n),O(n²),1,Easy,Only the head pointer and new node link need adjustment.
+164,Programming and Data Structures,Linked Lists,A doubly linked list has?,Next pointer only,Previous and next pointers,No pointers,Three mandatory pointers,2,Easy,Doubly linked nodes link both directions.
+165,Programming and Data Structures,Linked Lists,A circular linked list has its last node pointing to?,NULL,First node,Middle node,Itself always,2,Easy,The last node points back to the first node.
+166,Programming and Data Structures,Stacks,A stack follows?,FIFO,LIFO,Random order,Priority order,2,Easy,The last inserted item is removed first.
+167,Programming and Data Structures,Stacks,The operation that inserts into a stack is?,Pop,Push,Peek,Delete,2,Easy,Push adds an element to a stack.
+168,Programming and Data Structures,Stacks,The operation that removes from a stack is?,Push,Pop,Peek,Insert,2,Easy,Pop removes the top element.
+169,Programming and Data Structures,Queues,A queue follows?,LIFO,FIFO,Random order,Tree order,2,Easy,The first inserted element leaves first.
+170,Programming and Data Structures,Queues,Insertion in a queue is called?,Enqueue,Dequeue,Push,Pop,1,Easy,Enqueue inserts at the rear.
+171,Programming and Data Structures,Queues,Removal from a queue is called?,Enqueue,Dequeue,Push,Peek,2,Easy,Dequeue removes from the front.
+172,Programming and Data Structures,Trees,A binary tree node has at most how many children?,1,2,3,4,2,Easy,A binary tree permits at most two children per node.
+173,Programming and Data Structures,Trees,"In a binary search tree, keys in the left subtree are generally?",Greater,Smaller,Equal only,Unrelated,2,Easy,BST ordering places smaller keys to the left.
+174,Programming and Data Structures,Trees,Inorder traversal of a BST produces keys in?,Sorted order,Reverse insertion order always,Random order,Level order,1,Easy,Inorder traversal of a BST visits keys in ascending order.
+175,Programming and Data Structures,Trees,A leaf node has?,No children,One child,Two children always,A parent only,1,Easy,A leaf has no children.
+176,Programming and Data Structures,Trees,A full binary tree has each node with?,0 or 2 children,Exactly 1 child,At most 3 children,Only left child,1,Medium,Every node in a full binary tree has either zero or two children.
+177,Programming and Data Structures,Heaps,A min-heap has the smallest element at the?,Root,Last leaf,Middle,Random node,1,Easy,The root of a min-heap contains the minimum key.
+178,Programming and Data Structures,Heaps,A heap is commonly implemented using an?,Array,Linked list only,Graph matrix,String,1,Easy,Binary heaps are efficiently represented in arrays.
+179,Programming and Data Structures,Graphs,Breadth-first search uses a?,Stack,Queue,Heap only,Recursion only,2,Easy,BFS explores level by level using a queue.
+180,Programming and Data Structures,Graphs,Depth-first search commonly uses?,Stack or recursion,Queue only,Hash table only,Heap only,1,Easy,DFS uses a stack explicitly or through recursion.
+181,Programming and Data Structures,Graphs,A graph with edges having direction is?,Directed graph,Undirected graph,Tree only,Complete graph,1,Easy,Directed graphs have ordered edge endpoints.
+182,Programming and Data Structures,Graphs,An adjacency matrix for n vertices uses?,O(n),O(n²),O(log n),O(1),2,Easy,An n×n matrix needs O(n²) storage.
+183,Programming and Data Structures,Graphs,Topological sorting applies to?,Directed acyclic graphs,Any graph,Undirected cycles only,Complete graphs only,1,Medium,A topological ordering exists for DAGs.
+184,Programming and Data Structures,Hashing,A hash function maps a key to?,Table index/value,Only a tree,A queue position,A CPU register,1,Easy,Hashing computes an index or hash value from a key.
+185,Programming and Data Structures,Hashing,Collision occurs when two keys map to?,Same slot,Different tables,No slot,Same value always,1,Easy,A collision means different keys receive the same hash location.
+186,Programming and Data Structures,Hashing,Separate chaining resolves collisions using?,Linked structures at buckets,Only sorting,CPU registers,Recursion,1,Easy,Each bucket can maintain a chain of colliding entries.
+187,Programming and Data Structures,Recursion,A recursive function must have a?,Base case,Pointer only,Global variable,Loop only,1,Easy,A base case prevents infinite recursion.
+188,Programming and Data Structures,Complexity,Binary search on a sorted array runs in?,O(1),O(log n),O(n),O(n²),2,Easy,Binary search halves the search interval each step.
+189,Programming and Data Structures,Complexity,Linear search in an unsorted array has worst-case time?,O(1),O(log n),O(n),O(n²),3,Easy,It may inspect every element.
+190,Programming and Data Structures,Complexity,Merging two sorted arrays of total length n takes?,O(1),O(log n),O(n),O(n²),3,Easy,Each element is processed once during merging.
+191,Programming and Data Structures,Complexity,A balanced BST search has average/worst-case order?,O(log n),O(n²),O(1),O(2^n),1,Medium,A balanced BST has logarithmic height.
+192,Programming and Data Structures,Strings,"In C, a string is terminated by?",' ',"''",EOF,Space,1,Easy,C strings end with the null character.
+193,Programming and Data Structures,Structures,A structure in C can contain?,Members of different types,Only integers,Only characters,Only arrays,1,Easy,Structures can group heterogeneous data types.
+194,Programming and Data Structures,Pointers,A NULL pointer represents?,No valid object address,Address zero only in all systems,A string,A valid array element,1,Easy,NULL indicates that the pointer does not point to a valid object.
+195,Programming and Data Structures,Dynamic Memory,malloc returns?,Pointer to allocated memory,Integer only,Boolean,File handle,1,Easy,malloc returns a pointer to allocated storage or NULL on failure.
+196,Programming and Data Structures,Dynamic Memory,Which function releases memory allocated by malloc?,delete,release,free,remove,3,Easy,free releases dynamically allocated memory in C.
+197,Programming and Data Structures,Data Structures,A deque permits insertion and deletion at?,Both ends,Only front,Only rear,Middle only,1,Easy,A deque supports operations at both front and rear.
+198,Programming and Data Structures,Data Structures,A priority queue removes elements according to?,Priority,Insertion time only,Random order,Alphabetical order,1,Easy,The highest/lowest priority element is selected depending on implementation.
+199,Programming and Data Structures,Trees,The height of a single-node tree is commonly defined as?,0,1,2,-1,1,Easy,"Under the common edge-count convention, a one-node tree has height zero."
+200,Programming and Data Structures,Graphs,A connected undirected graph with V vertices and V-1 edges is?,A tree,A complete graph,A cycle,A disconnected graph,1,Easy,A connected graph with V−1 edges is a tree.
+201,Algorithms,Sorting,Worst-case time of merge sort is?,O(n),O(log n),O(n log n),O(n²),3,Easy,Merge sort runs in O(n log n) in the worst case.
+202,Algorithms,Sorting,Worst-case time of quicksort is?,O(log n),O(n),O(n log n),O(n²),4,Easy,Poor pivot choices can produce O(n²) time.
+203,Algorithms,Sorting,Average-case time of quicksort is?,O(n),O(n log n),O(n²),O(log n),2,Easy,"With reasonable pivot behavior, quicksort averages O(n log n)."
+204,Algorithms,Sorting,Best-case time of bubble sort with early stopping can be?,O(1),O(n),O(n log n),O(n²),2,Medium,"If the input is already sorted, one pass can detect completion."
+205,Algorithms,Sorting,Selection sort performs approximately how many comparisons?,O(log n),O(n),O(n²),O(2^n),3,Easy,Selection sort performs quadratic comparisons.
+206,Algorithms,Sorting,Insertion sort is efficient when data is?,Nearly sorted,Random and huge only,Always reversed,Unrelated,1,Easy,Insertion sort performs well on nearly sorted data.
+207,Algorithms,Sorting,Heap sort worst-case complexity is?,O(n),O(n log n),O(n²),O(log n),2,Easy,Heap sort maintains O(n log n) worst-case time.
+208,Algorithms,Sorting,A stable sorting algorithm preserves?,Relative order of equal keys,Only minimum value,Array size,Memory address,1,Easy,Stability preserves the relative order of equal-key records.
+209,Algorithms,Divide and Conquer,Binary search uses?,Divide and conquer,Greedy only,Dynamic programming,Backtracking only,1,Easy,Binary search recursively halves the search interval.
+210,Algorithms,Divide and Conquer,Merge sort divides an array into?,Two subarrays,n² arrays,One element only,Three equal arrays always,1,Easy,Merge sort recursively splits into two halves.
+211,Algorithms,Divide and Conquer,The merge step combines?,Sorted subarrays,Unsorted graphs,Trees only,Hash tables,1,Easy,Merge combines two sorted halves into one sorted array.
+212,Algorithms,Greedy,Dijkstra's algorithm assumes edge weights are?,Nonnegative,Always negative,All zero,Prime only,1,Medium,Dijkstra's standard algorithm requires nonnegative edge weights.
+213,Algorithms,Greedy,Kruskal's algorithm finds a?,Minimum spanning tree,Shortest path between all pairs,Topological order,Maximum flow,1,Easy,Kruskal builds an MST by selecting safe light edges.
+214,Algorithms,Greedy,Prim's algorithm finds a?,Minimum spanning tree,Sorting order,String match,Maximum clique,1,Easy,Prim grows a minimum spanning tree.
+215,Algorithms,Greedy,Activity selection is a classic example of?,Greedy algorithm,Dynamic programming only,Backtracking,Divide only,1,Easy,Selecting the activity with earliest finish time is greedy.
+216,Algorithms,Greedy,Huffman coding constructs an?,Optimal prefix code,Shortest path tree,BST only,Hash table,1,Easy,Huffman coding generates an optimal prefix code for given frequencies.
+217,Algorithms,Dynamic Programming,Dynamic programming is useful when problems have?,Overlapping subproblems and optimal substructure,Only random inputs,No repeated work,No subproblems,1,Easy,These are the two classic DP properties.
+218,Algorithms,Dynamic Programming,Fibonacci using DP can reduce time from exponential to?,O(n),O(n²),O(log n) always,O(2^n),1,Easy,Memoization/tabulation computes each Fibonacci value once.
+219,Algorithms,Dynamic Programming,0/1 knapsack is commonly solved using?,Dynamic programming,Only BFS,Only DFS,Counting sort,1,Easy,The standard 0/1 knapsack solution uses DP.
+220,Algorithms,Dynamic Programming,Matrix-chain multiplication minimizes?,Scalar multiplication cost,Number of matrices,Matrix values,Memory addresses,1,Easy,DP finds the parenthesization with minimum scalar multiplications.
+221,Algorithms,Dynamic Programming,Longest common subsequence is commonly solved by?,Dynamic programming,Dijkstra,Prim,Binary search,1,Easy,LCS has overlapping subproblems and optimal substructure.
+222,Algorithms,Graphs,BFS finds shortest paths in an unweighted graph in?,O(V+E),O(V²E),O(log V),O(E²),1,Easy,BFS processes each vertex and edge a constant number of times.
+223,Algorithms,Graphs,DFS time complexity with adjacency lists is?,O(V+E),O(V²E),O(E²),O(log V),1,Easy,DFS visits every vertex and examines every adjacency list edge.
+224,Algorithms,Graphs,Bellman-Ford can handle?,Negative edge weights,Only positive weights,Only trees,Only DAGs,1,Medium,Bellman-Ford supports negative edges and detects negative cycles.
+225,Algorithms,Graphs,Bellman-Ford can detect?,Negative-weight cycles,Only positive cycles,Sorting errors,Cache misses,1,Easy,An extra relaxation after V−1 rounds can reveal reachable negative cycles.
+226,Algorithms,Graphs,Floyd-Warshall computes?,All-pairs shortest paths,MST only,Topological order,Maximum matching only,1,Easy,Floyd-Warshall is an all-pairs shortest-path DP algorithm.
+227,Algorithms,Graphs,Warshall's algorithm is used for?,Transitive closure,Sorting,MST,Compression,1,Medium,Warshall computes reachability/transitive closure.
+228,Algorithms,Graphs,A spanning tree of a connected graph with V vertices has?,V-1 edges,V edges,2V edges,V² edges,1,Easy,Every spanning tree has V−1 edges.
+229,Algorithms,Graphs,An MST of a connected weighted graph is?,A spanning tree with minimum total weight,Any shortest path,A directed cycle,A complete graph,1,Easy,MST minimizes total edge weight among spanning trees.
+230,Algorithms,Complexity,Big-O describes an asymptotic?,Upper bound,Exact running time always,Lower bound only,Memory address,1,Easy,Big-O is commonly used for an asymptotic upper bound.
+231,Algorithms,Complexity,Big-Theta describes a?,Tight asymptotic bound,Only upper bound,Only lower bound,Constant value,1,Easy,Theta provides matching asymptotic upper and lower bounds.
+232,Algorithms,Complexity,Big-Omega describes an asymptotic?,Lower bound,Upper bound only,Exact count,Random bound,1,Easy,Omega gives an asymptotic lower bound.
+233,Algorithms,Complexity,An algorithm with O(2^n) is generally?,Exponential,Linear,Logarithmic,Constant,1,Easy,2^n grows exponentially with n.
+234,Algorithms,Complexity,An O(log n) algorithm is generally?,Logarithmic,Quadratic,Cubic,Exponential,1,Easy,The logarithm grows slowly as n increases.
+235,Algorithms,Backtracking,N-Queens is a classic example of?,Backtracking,Counting sort,BFS only,Hashing,1,Easy,Backtracking explores placements and abandons invalid partial solutions.
+236,Algorithms,Backtracking,Backtracking prunes a search when the partial solution is?,Invalid or cannot lead to a solution,Always complete,Optimal,Sorted,1,Easy,Invalid branches are abandoned.
+237,Algorithms,Backtracking,Subset-sum can be solved using?,Backtracking,Only hashing,Only sorting,Only BFS,1,Easy,Backtracking can enumerate subsets and prune based on constraints.
+238,Algorithms,String Algorithms,KMP improves pattern matching using?,Prefix/failure information,Heap ordering,Graph coloring,Matrix inversion,1,Medium,KMP uses the prefix function to avoid redundant comparisons.
+239,Algorithms,String Algorithms,KMP worst-case matching time is?,O(nm),O(n+m),O(n²m),O(log n),2,Medium,KMP searches in O(n+m).
+240,Algorithms,String Algorithms,A trie is useful for?,Prefix-based string queries,MST construction,Matrix multiplication,CPU scheduling,1,Easy,Tries represent strings character by character and support prefix queries.
+241,Algorithms,Number Algorithms,Euclid's algorithm computes?,GCD,LCM only,Sorting,Prime count only,1,Easy,Euclid's algorithm finds the greatest common divisor.
+242,Algorithms,Number Algorithms,The time complexity of Euclid's GCD algorithm is?,"O(log min(a,b))",O(a+b),O(a²),O(2^a),1,Medium,Euclid's algorithm has logarithmic complexity in the smaller input.
+243,Algorithms,Number Algorithms,Sieve of Eratosthenes finds?,Primes up to a limit,Shortest paths,MST,Sorting only,1,Easy,The sieve efficiently marks composite numbers.
+244,Algorithms,Recurrence,A recurrence relation defines a problem in terms of?,Smaller instances of itself,Only constants,Random values,Input files,1,Easy,Recurrences express a function using smaller input sizes.
+245,Algorithms,Recurrence,Master theorem is commonly used for recurrences of?,Divide-and-conquer algorithms,Only greedy algorithms,Only graph algorithms,Only sorting comparisons,1,Easy,Master theorem analyzes recurrences such as T(n)=aT(n/b)+f(n).
+246,Algorithms,Recurrence,T(n)=2T(n/2)+n has asymptotic solution?,O(n),O(log n),O(n log n),O(n²),3,Medium,"By the Master theorem, the solution is Θ(n log n)."
+247,Algorithms,Graphs,A topological ordering exists only if a directed graph is?,Acyclic,Complete,Undirected,Weighted,1,Easy,Directed cycles prevent a topological ordering.
+248,Algorithms,Sorting,Counting sort is most suitable when keys lie in a?,Small integer range,Huge arbitrary real range,Graph,Linked tree only,1,Easy,Counting sort is efficient when the key range is reasonably small.
+249,Algorithms,Complexity,An algorithm with running time O(n²) is asymptotically slower than O(n log n) for?,Large n,Only n=1,No n,All constants,1,Easy,"For sufficiently large n, n² grows faster than n log n."
+250,Algorithms,Greedy,Fractional knapsack can be optimally solved by selecting items in decreasing order of?,Value-to-weight ratio,Weight only,Value only,Input order,1,Medium,The greedy strategy chooses the highest value/weight ratio first.
+251,Theory of Computation,Finite Automata,A DFA has exactly how many transitions for each state and input symbol?,0,1,2,Any number,2,Easy,A DFA has exactly one transition for each state-symbol pair.
+252,Theory of Computation,Finite Automata,An NFA may have?,Multiple possible transitions,Exactly one transition always,No states,Only final states,1,Easy,"An NFA can have zero, one or multiple transitions for a symbol."
+253,Theory of Computation,Finite Automata,DFA and NFA recognize the same class of?,Regular languages,Context-free languages only,All languages,Recursive languages only,1,Easy,Both DFA and NFA recognize exactly the regular languages.
+254,Theory of Computation,Finite Automata,A finite automaton has a finite number of?,States,Input strings,Transitions always,Languages,1,Easy,The defining memory of a finite automaton is a finite state set.
+255,Theory of Computation,Finite Automata,An epsilon transition consumes?,No input symbol,One symbol,Two symbols,A complete string,1,Easy,ε-transitions change state without consuming input.
+256,Theory of Computation,Regular Languages,Regular languages are closed under?,Union,Only concatenation,Neither operation,Only reversal,1,Easy,"Regular languages are closed under union, intersection, complement, concatenation and more."
+257,Theory of Computation,Regular Languages,The complement of a regular language is?,Regular,Always context-free only,Never regular,Undecidable,1,Easy,Regular languages are closed under complement.
+258,Theory of Computation,Regular Languages,The pumping lemma for regular languages is mainly used to?,Prove some languages are not regular,Construct a CPU,Sort strings,Build databases,1,Medium,It is a tool for showing non-regularity.
+259,Theory of Computation,Regular Expressions,A regular expression describes a?,Regular language,Context-sensitive language only,Database schema,Machine code,1,Easy,Regular expressions characterize regular languages.
+260,Theory of Computation,Regular Expressions,The Kleene star permits?,Zero or more repetitions,Exactly one repetition,Only two repetitions,No repetition,1,Easy,L* contains zero or more concatenations of strings from L.
+261,Theory of Computation,CFG,"A context-free grammar consists of variables, terminals, productions and?",Start symbol,Cache,Register,Graph only,1,Easy,"A CFG is defined by variables, terminals, production rules and a start symbol."
+262,Theory of Computation,CFG,A context-free grammar generates a?,Context-free language,Only regular language,Database,Machine code,1,Easy,CFGs generate context-free languages.
+263,Theory of Computation,CFG,A parse tree represents a?,Derivation of a string,Memory layout,Network route,Sorting process,1,Easy,A parse tree shows how grammar productions derive the string.
+264,Theory of Computation,CFG,A grammar is ambiguous if some string has?,More than one parse tree,No derivation,Exactly one production,No terminals,1,Medium,Ambiguity means at least one string has multiple parse trees/leftmost derivations.
+265,Theory of Computation,CFG,Chomsky Normal Form productions are typically of forms?,A→BC or A→a,A→ABC only,A→ε only,A→BBBB,1,Medium,CNF mainly uses binary variable productions or a single terminal.
+266,Theory of Computation,PDA,A pushdown automaton has access to a?,Stack,Queue only,Tape of infinite symbols,Register file,1,Easy,A PDA augments finite-state control with a stack.
+267,Theory of Computation,PDA,PDAs recognize?,Context-free languages,Regular languages only,All languages,Only finite languages,1,Easy,Nondeterministic PDAs characterize context-free languages.
+268,Theory of Computation,PDA,The stack provides memory useful for matching?,Nested structures,Only fixed-length strings,IP addresses,Sorting keys,1,Easy,Stacks naturally handle nested constructs such as parentheses.
+269,Theory of Computation,PDA,A PDA can accept by final state or?,Empty stack,Only halt state,Checksum,Cache miss,1,Easy,Equivalent PDA acceptance methods include final state and empty stack.
+270,Theory of Computation,CFL,Context-free languages are closed under?,Union,Intersection always,Complement always,Difference always,1,Easy,"CFLs are closed under union and concatenation, but not general intersection/complement."
+271,Theory of Computation,CFL,CFLs are not closed under general?,Intersection,Union,Concatenation,Kleene star,1,Medium,Context-free languages are not closed under intersection.
+272,Theory of Computation,CFL,The intersection of a CFL and a regular language is?,Context-free,Always non-context-free,Regular only,Empty always,1,Medium,CFLs are closed under intersection with regular languages.
+273,Theory of Computation,Turing Machines,A Turing machine has an unbounded?,Tape,Stack only,Queue only,Register array,1,Easy,The tape provides unbounded working memory in the theoretical model.
+274,Theory of Computation,Turing Machines,A Turing machine can move its head?,Left or right,Only right,Only left,Never,1,Easy,The standard TM head can move left or right.
+275,Theory of Computation,Turing Machines,A TM is more powerful than a finite automaton because it has?,Unbounded tape memory,More input symbols,More final states,Faster transitions,1,Easy,Its unbounded tape allows general computation.
+276,Theory of Computation,Turing Machines,A language is decidable if some TM?,Halts on every input and accepts exactly the language,Never halts,Accepts everything,Uses no tape,1,Medium,A decider halts on every input.
+277,Theory of Computation,Turing Machines,A recognizer may?,Loop forever on nonmembers,Always halt,Reject only empty strings,Have no states,1,Medium,A recognizer is not required to halt on strings outside the language.
+278,Theory of Computation,Decidability,The halting problem is?,Undecidable,Regular,Always decidable,A sorting problem,1,Easy,No algorithm decides for all programs whether they halt.
+279,Theory of Computation,Decidability,The acceptance problem for Turing machines is?,Undecidable,Always finite,Regular,A graph problem,1,Medium,General TM acceptance is undecidable.
+280,Theory of Computation,Decidability,Rice's theorem concerns nontrivial properties of?,Languages recognized by TMs,Integers only,Finite automata states,Graphs,1,Medium,Rice's theorem states that nontrivial semantic properties of TM-recognized languages are undecidable.
+281,Theory of Computation,Complexity,P is the class of problems solvable in?,Polynomial time by deterministic machines,Exponential time only,Constant time only,No time,1,Easy,P contains decision problems solvable in deterministic polynomial time.
+282,Theory of Computation,Complexity,NP is the class of decision problems whose solutions can be?,Verified in polynomial time,Never verified,Only generated in constant time,Verified only exponentially,1,Easy,NP has polynomial-time verifiable certificates.
+283,Theory of Computation,Complexity,Every problem in P is also in?,NP,Undecidable,PSPACE only but not NP,None,1,Easy,A deterministic polynomial-time algorithm also provides a polynomial verifier.
+284,Theory of Computation,Complexity,SAT is?,NP-complete,Always in P,Undecidable,Regular,1,Medium,Boolean satisfiability is a canonical NP-complete problem.
+285,Theory of Computation,Complexity,A problem is NP-hard if?,Every NP problem reduces to it in polynomial time,It is always in NP,It is regular,It has no algorithm,1,Medium,NP-hardness means all NP problems polynomially reduce to it.
+286,Theory of Computation,Grammars,A grammar with productions unrestricted in form is?,Unrestricted grammar,Regular grammar,Right-linear grammar,Finite automaton,1,Easy,Type-0 grammars are unrestricted.
+287,Theory of Computation,Grammars,Type-3 grammars correspond to?,Regular languages,CFLs,Context-sensitive languages,Recursive languages,1,Easy,Type-3 grammars generate regular languages.
+288,Theory of Computation,Grammars,Type-2 grammars correspond to?,Context-free languages,Regular languages only,Context-sensitive only,Decidable only,1,Easy,Type-2 grammars are context-free grammars.
+289,Theory of Computation,Grammars,Type-1 grammars correspond to?,Context-sensitive languages,Regular languages,Finite languages,Only recursive languages,1,Easy,Type-1 grammars generate context-sensitive languages.
+290,Theory of Computation,Automata,The minimal DFA for a regular language is?,Unique up to isomorphism,Always unique exactly,Never unique,Impossible to construct,1,Medium,The minimal DFA is unique up to renaming of states.
+291,Theory of Computation,Automata,Myhill-Nerode theorem characterizes?,Regular languages,Only CFLs,Only TMs,Sorting algorithms,1,Medium,A language is regular iff it has finitely many Myhill-Nerode equivalence classes.
+292,Theory of Computation,Automata,Two DFA states are equivalent if no string can?,Distinguish their acceptance behavior,Reach them,Delete them,Rename them,1,Medium,Equivalent states accept the same set of continuations.
+293,Theory of Computation,Automata,A complete DFA has a transition defined for?,Every state-symbol pair,Only accepting states,Only start state,No pair,1,Easy,Completeness requires one transition for each state and input symbol.
+294,Theory of Computation,Languages,Concatenation of two regular languages is?,Regular,Always non-context-free,Undecidable,Non-language,1,Easy,Regular languages are closed under concatenation.
+295,Theory of Computation,Languages,Kleene star of a regular language is?,Regular,Never regular,Undecidable,Context-sensitive only,1,Easy,Regular languages are closed under Kleene star.
+296,Theory of Computation,Languages,A finite language is always?,Regular,Non-context-free,Undecidable,Infinite,1,Easy,Every finite language is regular.
+297,Theory of Computation,Languages,The empty language is?,Regular,Not a language,Only context-sensitive,Undecidable,1,Easy,The empty language is regular.
+298,Theory of Computation,Automata,A language accepted by a finite automaton is necessarily?,Regular,Context-sensitive only,Undecidable,Non-computable,1,Easy,Finite automata recognize exactly regular languages.
+299,Theory of Computation,Turing Machines,The tape alphabet of a Turing machine includes a?,Blank symbol,SQL keyword,Network address,CPU opcode only,1,Easy,The blank symbol is used on unused tape cells.
+300,Theory of Computation,Decidability,A decidable language is also called?,Recursive language,Regular language only,Finite language only,Undecidable language,1,Easy,A decidable language has a Turing machine decider that halts on every input.
+301,Compiler Design,Lexical Analysis,The lexical analyzer converts characters into?,Tokens,Parse trees,Machine code,Basic blocks,1,Easy,Lexical analysis groups characters into tokens.
+302,Compiler Design,Lexical Analysis,A token consists of a token type and?,Lexeme/associated value,CPU register,Memory page,Parse tree,1,Easy,A token identifies a lexical category and its lexeme/value.
+303,Compiler Design,Lexical Analysis,Regular expressions are commonly used to specify?,Tokens,Machine instructions,Register allocation,Cache mapping,1,Easy,Token patterns are naturally described with regular expressions.
+304,Compiler Design,Lexical Analysis,The lexical analyzer commonly removes?,Whitespace and comments,Variables,Functions,Machine instructions,1,Easy,Whitespace/comments are generally discarded unless significant.
+305,Compiler Design,Lexical Analysis,A symbol table stores information about?,Identifiers and their attributes,Only keywords,CPU instructions,Network packets,1,Easy,"The symbol table records names, types, scope and related attributes."
+306,Compiler Design,Parsing,A parser checks?,Syntactic structure,Only spelling,CPU voltage,Disk sectors,1,Easy,Parsing verifies whether tokens conform to grammar.
+307,Compiler Design,Parsing,Top-down parsing starts from the?,Start symbol,Input character only,Last token,Machine code,1,Easy,Top-down parsers derive the input from the grammar start symbol.
+308,Compiler Design,Parsing,Bottom-up parsing constructs the parse tree from?,Leaves toward root,Root toward leaves only,Middle outward,Tokens backward only,1,Easy,Bottom-up parsing reduces input fragments toward the start symbol.
+309,Compiler Design,Parsing,LL(1) parsing uses how many lookahead tokens?,0,1,2,All,2,Easy,The '1' denotes one-symbol lookahead.
+310,Compiler Design,Parsing,LR parsers are generally?,Bottom-up,Top-down,Lexical only,Semantic only,1,Easy,LR parsing is a bottom-up shift-reduce technique.
+311,Compiler Design,Parsing,A shift-reduce parser uses operations including?,Shift and reduce,Compile and link,Read and write,Push and pop only,1,Easy,Shift-reduce parsing shifts input and reduces handles.
+312,Compiler Design,Parsing,An ambiguous grammar can cause?,Multiple parse trees,No tokens,No terminals,Only lexical errors,1,Medium,Ambiguity means a string may have multiple parse trees.
+313,Compiler Design,Semantic Analysis,Type checking is mainly part of?,Semantic analysis,Lexical analysis,Code generation,Linking,1,Easy,Semantic analysis checks types and meaning-related constraints.
+314,Compiler Design,Semantic Analysis,Scope rules determine?,Visibility of identifiers,CPU clock speed,Instruction size,Disk layout,1,Easy,Scope determines where a name is visible.
+315,Compiler Design,Semantic Analysis,An undeclared identifier is typically a?,Semantic error,Lexical token,Cache miss,Syntax tree,1,Easy,Using a name without declaration is generally a semantic error.
+316,Compiler Design,Intermediate Code,Three-address code typically has at most?,Three addresses/operands per instruction,One variable total,Ten operators,No temporaries,1,Easy,Three-address instructions commonly contain two operands and one result.
+317,Compiler Design,Intermediate Code,"A quadruple representation has fields operator, arg1, arg2 and?",Result,Token,Scope,Address bus,1,Easy,"A quadruple has op, arg1, arg2 and result."
+318,Compiler Design,Intermediate Code,A basic block has?,One entry and one exit,Many entries and no exits,No statements,Only branches,1,Medium,A basic block has a single entry point and one exit.
+319,Compiler Design,Intermediate Code,Control-flow graphs represent?,Basic block flow,Only variables,Token patterns,Symbol tables,1,Easy,CFGs show possible transfers between basic blocks.
+320,Compiler Design,Code Optimization,Constant folding evaluates?,Constant expressions at compile time,All loops at runtime,Input strings,Network packets,1,Easy,Constant expressions can be computed during compilation.
+321,Compiler Design,Code Optimization,Dead-code elimination removes code that?,Cannot affect observable behavior,Contains comments,Has variables,Is inside loops always,1,Easy,Dead code has no effect on program outputs/side effects.
+322,Compiler Design,Code Optimization,Common subexpression elimination avoids recomputing?,Same expression,All constants,All loops,Every variable,1,Easy,Previously computed equivalent expressions can be reused.
+323,Compiler Design,Code Optimization,Loop-invariant code motion moves invariant computations?,Outside the loop,Into the lexer,Into memory only,After program termination,1,Easy,Expressions unchanged across iterations can be moved outside loops.
+324,Compiler Design,Code Optimization,Peephole optimization examines?,Small sequences of target instructions,Entire source code semantics,Only comments,Only input,1,Easy,Peephole optimizers inspect short instruction windows.
+325,Compiler Design,Code Generation,The code generator produces?,Target code,Tokens,Parse tree,Grammar,1,Easy,Code generation maps intermediate representation to target machine code.
+326,Compiler Design,Code Generation,Register allocation assigns values to?,CPU registers,Disk sectors,Tokens,Grammar symbols,1,Easy,Register allocation chooses registers for live values.
+327,Compiler Design,Code Generation,Instruction selection chooses?,Machine instructions,Variable names,Grammar productions,Input tokens,1,Easy,Instruction selection maps operations to target instructions.
+328,Compiler Design,Runtime Environment,An activation record is associated with a?,Procedure/function call,Token,Cache line,Grammar,1,Easy,A function call creates an activation record containing call-related data.
+329,Compiler Design,Runtime Environment,The call stack stores?,Activation records,Source files,Tokens only,Disk blocks,1,Easy,The runtime stack stores function call frames.
+330,Compiler Design,Runtime Environment,Static links help access?,Nonlocal variables in nested procedures,CPU registers,Heap blocks only,Tokens,1,Medium,Static links connect activation records for lexical nesting.
+331,Compiler Design,Runtime Environment,Dynamic links usually point to?,Caller activation record,Global memory only,Lexer buffer,Heap root,1,Medium,The dynamic link identifies the caller's activation record.
+332,Compiler Design,Error Handling,Lexical errors are detected by the?,Lexical analyzer,Parser only,Linker only,Operating system,1,Easy,The lexer identifies invalid character/token patterns.
+333,Compiler Design,Error Handling,Syntax errors are detected during?,Parsing,Register allocation,Linking only,Execution only,1,Easy,The parser detects grammar violations.
+334,Compiler Design,Error Handling,Semantic errors are detected during?,Semantic analysis,Lexical analysis only,Disk formatting,Booting,1,Easy,Semantic analysis catches meaning/type/scope errors.
+335,Compiler Design,Compiler Phases,"A typical compiler pipeline includes lexical analysis, parsing, semantic analysis and?",Code generation,Disk partitioning,Network routing,Memory formatting,1,Easy,Code generation is a standard later compiler phase.
+336,Compiler Design,Compiler Phases,A compiler translates source code into?,Target/assembly/machine code,Only comments,Only tokens,Only grammar,1,Easy,A compiler translates a source program into a target representation.
+337,Compiler Design,Compiler Types,A one-pass compiler processes source approximately?,Once,Ten times always,Only backwards,Never,1,Easy,A one-pass compiler performs translation in one major pass.
+338,Compiler Design,Compiler Types,An optimizing compiler attempts to improve?,Generated code performance/size,Source spelling only,Network speed,Keyboard input,1,Easy,Optimization improves characteristics of generated code.
+339,Compiler Design,Linking,A linker combines?,Object modules and libraries,Tokens and lexemes,Parse trees only,Registers,1,Easy,The linker resolves external references and combines object files/libraries.
+340,Compiler Design,Loading,A loader places executable code into?,Memory for execution,Source editor,Symbol table only,Grammar,1,Easy,The loader prepares a program in memory for execution.
+341,Compiler Design,Grammar,A grammar's terminals correspond to?,Tokens/symbols that appear in derived strings,Nonterminal placeholders only,CPU registers,Memory pages,1,Easy,Terminals are the symbols of generated strings.
+342,Compiler Design,Grammar,Nonterminals are used to represent?,Syntactic categories,Machine instructions,Memory addresses,Disk blocks,1,Easy,Nonterminals represent grammar constructs.
+343,Compiler Design,Parsing,FIRST(X) contains terminals that can?,Begin strings derived from X,End every program,Only follow X,Never appear,1,Medium,FIRST gives possible first terminals of derivations.
+344,Compiler Design,Parsing,FOLLOW(A) contains terminals that can appear?,Immediately after A in derivations,Before every token,Only at program start,Only in comments,1,Medium,FOLLOW(A) describes terminals that may immediately follow A.
+345,Compiler Design,Parsing,Left recursion is problematic for many?,Top-down parsers,Bottom-up parsers only,Lexers,Linkers,1,Medium,Naive top-down parsers can recurse indefinitely on left-recursive grammars.
+346,Compiler Design,Optimization,Strength reduction replaces expensive operations with?,Cheaper equivalent operations,Random operations,More expensive operations,Syntax errors,1,Medium,"For example, repeated multiplication may be replaced by addition in suitable loops."
+347,Compiler Design,Optimization,Copy propagation replaces a variable with?,A known copied value/variable,A new function,A grammar rule,A memory page,1,Medium,Copy propagation substitutes a copied value where safe.
+348,Compiler Design,Compiler Theory,A DAG for a basic block can represent?,Expression dependencies,Network routes,File permissions,CPU interrupts,1,Medium,A DAG captures expression relationships within a basic block.
+349,Compiler Design,Lexical Analysis,A lexical analyzer commonly implements token recognition using?,Finite automata,Turing machines only,B-trees,Stacks only,1,Easy,Regular token patterns can be recognized by finite automata.
+350,Compiler Design,Parsing,A parse tree's internal nodes usually represent?,Nonterminals,Only terminals,Machine registers,Memory addresses,1,Easy,Internal nodes correspond to grammar nonterminals.
+351,Operating Systems,Processes,A process is?,A program in execution,A source file only,A CPU register,A disk partition,1,Easy,A process is an executing instance of a program.
+352,Operating Systems,Processes,PCB stands for?,Process Control Block,Program Cache Buffer,Process Code Bus,Page Control Block,1,Easy,The PCB stores process management information.
+353,Operating Systems,Processes,A process waiting for CPU allocation is in?,Ready state,Running state,Terminated state,New file state,1,Easy,Ready processes are waiting for CPU scheduling.
+354,Operating Systems,Processes,A running process is one that?,Currently executes on a CPU,Is on disk only,Is terminated,Has no memory,1,Easy,The running state indicates CPU execution.
+355,Operating Systems,Processes,A context switch changes the CPU from?,One process/thread to another,One disk to another,One file to another,One compiler to another,1,Easy,Context switching saves one execution context and loads another.
+356,Operating Systems,Threads,A thread is often called a?,Lightweight process,Disk block,Memory page,File descriptor,1,Easy,Threads are lightweight units of execution within a process.
+357,Operating Systems,Threads,Threads of the same process commonly share?,Address space,Separate programs,Different kernels,Different source code,1,Easy,Threads share process resources such as address space.
+358,Operating Systems,CPU Scheduling,FCFS stands for?,First Come First Served,Fast CPU File Service,First CPU First Storage,Fixed Cycle Fair Scheduling,1,Easy,FCFS schedules processes in arrival order.
+359,Operating Systems,CPU Scheduling,Round Robin uses a?,Time quantum,Priority queue only,Shortest job estimate only,Stack,1,Easy,Round Robin assigns each ready process a time quantum.
+360,Operating Systems,CPU Scheduling,SJF selects the process with the?,Shortest CPU burst,Highest memory,Largest PID,Longest burst,1,Easy,Shortest Job First chooses the shortest expected CPU burst.
+361,Operating Systems,CPU Scheduling,Preemptive SJF is also called?,Shortest Remaining Time First,FCFS,Round Robin,Priority only,1,Medium,SRTF preempts when a shorter remaining job arrives.
+362,Operating Systems,CPU Scheduling,Turnaround time equals completion time minus?,Arrival time,Burst time,Waiting time,Response time,1,Easy,Turnaround = completion − arrival.
+363,Operating Systems,CPU Scheduling,Waiting time is turnaround time minus?,Burst time,Arrival time,Response time,Completion time,1,Easy,Waiting = turnaround − CPU burst time.
+364,Operating Systems,CPU Scheduling,Response time is measured from arrival until?,First CPU response/start,Completion,Termination only,Disk access,1,Easy,Response time measures delay until first service.
+365,Operating Systems,Deadlocks,"Deadlock requires mutual exclusion, hold and wait, no preemption and?",Circular wait,Paging,Thrashing,Caching,1,Easy,These four are Coffman's necessary conditions.
+366,Operating Systems,Deadlocks,A system state from which deadlock can be avoided is?,Safe state,Unsafe state,Terminated state,Ready state,1,Easy,A safe state has a safe sequence and can avoid deadlock.
+367,Operating Systems,Deadlocks,Banker's algorithm is used for?,Deadlock avoidance,Deadlock detection only,Paging,Scheduling,1,Easy,Banker's algorithm grants resources while maintaining safety.
+368,Operating Systems,Deadlocks,Deadlock detection determines whether?,A deadlock currently exists,A process is fastest,Memory is cached,CPU is idle,1,Easy,Detection algorithms identify current deadlock.
+369,Operating Systems,Memory Management,Paging divides logical memory into?,Pages,Segments only,Files,Instructions only,1,Easy,Paging divides logical address space into fixed-size pages.
+370,Operating Systems,Memory Management,Physical memory is divided into?,Frames,Pages only,Segments only,Files,1,Easy,Physical memory is divided into frames of the same size as pages.
+371,Operating Systems,Memory Management,Page fault occurs when a referenced page is?,Not in main memory,In cache,In a register,Always corrupted,1,Easy,A page fault occurs when the page is absent from RAM.
+372,Operating Systems,Memory Management,Thrashing occurs when the system spends excessive time?,Paging,Executing useful work,Compiling,Booting,1,Easy,Thrashing is excessive paging activity with poor useful progress.
+373,Operating Systems,Memory Management,TLB stores recent?,Page-table translations,CPU instructions only,Disk sectors,File names,1,Easy,The TLB caches virtual-to-physical address translations.
+374,Operating Systems,Memory Management,Internal fragmentation is wasted space?,Inside allocated blocks,Between files only,Only on disk,In CPU registers,1,Easy,Internal fragmentation occurs within allocated regions.
+375,Operating Systems,Memory Management,External fragmentation is free space?,Scattered between allocated blocks,Inside pages only,Inside registers,In cache tags,1,Easy,External fragmentation leaves noncontiguous free holes.
+376,Operating Systems,Virtual Memory,Demand paging loads a page?,When it is needed,All pages at startup,Only after termination,Never,1,Easy,Demand paging loads pages on first required access.
+377,Operating Systems,Page Replacement,FIFO page replacement removes the?,Oldest loaded page,Least recently used page,Most recent page,Largest page,1,Easy,FIFO evicts the page that entered memory earliest.
+378,Operating Systems,Page Replacement,LRU removes the page that has been?,Least recently used,First loaded always,Most recently used,Largest,1,Easy,LRU uses recent access history.
+379,Operating Systems,Page Replacement,Optimal page replacement removes the page whose next use is?,Farthest in the future,Immediate,Most recent,Random,1,Medium,Optimal evicts the page whose next reference is farthest away.
+380,Operating Systems,File Systems,A file system manages?,Files and directories,Only CPU registers,Only network packets,Only processes,1,Easy,File systems organize persistent storage.
+381,Operating Systems,File Systems,A directory primarily stores?,File names and metadata/references,CPU instructions only,Page tables only,Network frames,1,Easy,Directories map names to file metadata/references.
+382,Operating Systems,File Systems,An inode commonly stores?,File metadata and block pointers,Only file name,CPU state,Network address,1,Medium,Unix-like inodes store metadata and references to data blocks.
+383,Operating Systems,File Systems,A file descriptor identifies an?,Open file description/entry,Entire disk,CPU process only,Instruction,1,Medium,A file descriptor is a process-level handle for an open file.
+384,Operating Systems,Synchronization,A critical section is code that accesses?,Shared resources,Only constants,Only local variables,Only source files,1,Easy,Critical sections access shared state requiring synchronization.
+385,Operating Systems,Synchronization,A mutex provides?,Mutual exclusion,Memory paging,File compression,CPU scheduling,1,Easy,A mutex ensures only one thread enters a protected critical section.
+386,Operating Systems,Synchronization,A semaphore is commonly used for?,Synchronization/resource counting,Compilation,File naming,Sorting,1,Easy,Semaphores coordinate access to shared resources.
+387,Operating Systems,Synchronization,The producer-consumer problem commonly uses?,Semaphores/bounded buffer,Only sorting,Only paging,Only deadlock,1,Easy,Synchronization primitives coordinate producers and consumers.
+388,Operating Systems,Synchronization,A race condition occurs when result depends on?,Timing/interleaving of concurrent operations,File size only,CPU model only,Program comments,1,Easy,Race conditions arise from unsynchronized concurrent accesses.
+389,Operating Systems,IPC,IPC stands for?,Inter-Process Communication,Internal Program Compilation,Input Process Control,Instruction Path Cache,1,Easy,IPC mechanisms allow processes to exchange data or synchronize.
+390,Operating Systems,IPC,A pipe is an IPC mechanism that provides?,A byte stream,Only shared code,Only CPU registers,A compiler,1,Easy,Pipes provide a unidirectional or paired byte stream.
+391,Operating Systems,IPC,Shared memory IPC allows processes to?,Access a common memory region,Avoid memory entirely,Only send interrupts,Only write files,1,Easy,Shared memory provides a common region for fast communication.
+392,Operating Systems,Protection,User mode restricts access to?,Privileged operations,All arithmetic,All variables,All files always,1,Medium,Privileged instructions are restricted to kernel/supervisor mode.
+393,Operating Systems,Protection,A system call provides an interface between?,User programs and OS kernel,Two CPUs only,Two files,Two compilers,1,Easy,System calls request OS services from user programs.
+394,Operating Systems,Booting,The bootloader is responsible for?,Loading the operating system/kernel,Compiling applications,Managing SQL,Scheduling threads only,1,Easy,The bootloader loads or starts the operating system.
+395,Operating Systems,Scheduling,Aging is used to reduce?,Starvation,Deadlock always,Paging,Fragmentation,1,Medium,Aging gradually increases priority of waiting processes.
+396,Operating Systems,Scheduling,Priority scheduling may suffer from?,Starvation,No context switches,No waiting,No priorities,1,Easy,Low-priority processes may wait indefinitely.
+397,Operating Systems,OS Design,A monolithic kernel generally keeps many OS services in?,Kernel space,User browser,Disk only,Application memory,1,Medium,Monolithic kernels place many services within the kernel address space.
+398,Operating Systems,Processes,The operating system scheduler selects a process from the?,Ready queue,File system only,Disk partition,Page table,1,Easy,The scheduler selects runnable processes from the ready queue.
+399,Operating Systems,Memory Management,Page size is normally a?,Power of two,Prime number always,Random value,String length,1,Medium,Power-of-two page sizes simplify address decomposition.
+400,Operating Systems,File Systems,A symbolic link is a file-system object that typically contains?,A path/reference to another file,A CPU instruction,A page table,A process ID,1,Medium,A symbolic link stores a pathname/reference to another file or directory.
+401,DBMS,SQL,Which command retrieves rows from a table?,SELECT,INSERT,UPDATE,DELETE,1,Easy,SELECT retrieves data.
+402,DBMS,SQL,Which command adds new rows?,SELECT,INSERT,UPDATE,DELETE,2,Easy,INSERT adds rows.
+403,DBMS,SQL,Which command modifies existing rows?,SELECT,INSERT,UPDATE,DELETE,3,Easy,UPDATE modifies existing records.
+404,DBMS,SQL,Which command removes rows?,SELECT,INSERT,UPDATE,DROP,4,Easy,DELETE removes rows from a table.
+405,DBMS,SQL,Which clause filters rows?,WHERE,GROUP BY,ORDER BY,CREATE,1,Easy,WHERE filters rows before grouping.
+406,DBMS,SQL,Which clause sorts query results?,WHERE,ORDER BY,HAVING,JOIN,2,Easy,ORDER BY sorts the result.
+407,DBMS,SQL,Which clause filters groups after aggregation?,WHERE,HAVING,ORDER BY,VALUES,2,Easy,HAVING filters grouped results.
+408,DBMS,SQL,Which aggregate function counts rows?,SUM,AVG,COUNT,MAX,3,Easy,COUNT returns the number of rows/values according to its form.
+409,DBMS,SQL,Which keyword removes duplicate rows from SELECT output?,UNIQUE,DISTINCT,DIFFERENT,ONLY,2,Easy,DISTINCT eliminates duplicate result rows.
+410,DBMS,SQL,A primary key must be?,Unique and non-null,Only numeric,Nullable,Duplicated,1,Easy,A primary key uniquely identifies each row and cannot be NULL.
+411,DBMS,Relational Model,A relation is commonly represented as a?,Table,Tree,Stack,Queue,1,Easy,Relations are represented as tables.
+412,DBMS,Relational Model,A tuple corresponds to a?,Row,Column,Database,Key only,1,Easy,A tuple is a row in a relation.
+413,DBMS,Relational Model,An attribute corresponds to a?,Column,Row,Table,Constraint only,1,Easy,An attribute is a column/property.
+414,DBMS,Relational Algebra,Selection operation chooses?,Rows,Columns,Tables only,Keys only,1,Easy,Selection filters tuples based on a predicate.
+415,DBMS,Relational Algebra,Projection operation chooses?,Columns,Rows,Databases,Indexes only,1,Easy,Projection selects attributes/columns.
+416,DBMS,Relational Algebra,Cartesian product of relations R and S pairs?,Every tuple of R with every tuple of S,Only matching tuples,Only keys,Only first rows,1,Medium,Cartesian product forms all possible tuple pairs.
+417,DBMS,Relational Algebra,Natural join matches tuples using?,Common attributes,Only row numbers,All columns regardless of names,No condition,1,Easy,Natural join joins on same-named common attributes.
+418,DBMS,Keys,A candidate key is a?,Minimal superkey,Any attribute,Foreign key only,Non-unique field,1,Easy,A candidate key is a minimal set of attributes uniquely identifying tuples.
+419,DBMS,Keys,A foreign key references a?,Candidate/primary key of another relation,Random column,File name,Index only,1,Easy,Foreign keys reference a key in another relation.
+420,DBMS,Normalization,1NF requires attributes to contain?,Atomic values,Only integers,Only keys,No NULLs ever,1,Easy,First normal form requires atomic attribute values.
+421,DBMS,Normalization,2NF removes?,Partial dependencies,All transitive dependencies,All redundancy,All foreign keys,1,Medium,2NF removes partial functional dependencies on part of a composite key.
+422,DBMS,Normalization,3NF primarily removes?,Transitive dependencies,All joins,Primary keys,Atomicity,1,Medium,3NF removes problematic transitive dependencies of non-key attributes.
+423,DBMS,Normalization,BCNF requires every determinant to be a?,Candidate key,Foreign key,Non-key attribute,Tuple,1,Medium,"In BCNF, every nontrivial determinant is a candidate key."
+424,DBMS,Functional Dependencies,"If X→Y, X is called the?",Determinant,Dependent only,Tuple,Foreign key,1,Easy,"In X→Y, X determines Y."
+425,DBMS,Functional Dependencies,A functional dependency describes a constraint on?,Attribute values,CPU instructions,Disk blocks,Transactions only,1,Easy,FDs express how attribute values determine other attributes.
+426,DBMS,Transactions,"ACID stands for Atomicity, Consistency, Isolation and?",Durability,Dependency,Distribution,Detection,1,Easy,D stands for durability.
+427,DBMS,Transactions,Atomicity means a transaction is?,All-or-nothing,Always concurrent,Always read-only,Never rolled back,1,Easy,Atomicity prevents partial completion.
+428,DBMS,Transactions,Isolation concerns?,Concurrent transaction interference,Disk formatting,Table names,SQL syntax,1,Easy,Isolation controls the visibility/effects of concurrent transactions.
+429,DBMS,Transactions,Durability means committed changes survive?,Failures/restarts,Only queries,Only SELECT,Memory allocation,1,Easy,Durability preserves committed effects despite failures.
+430,DBMS,Concurrency,A schedule in which transactions execute one after another is?,Serial,Nonserial,Cyclic,Random,1,Easy,A serial schedule has no interleaving.
+431,DBMS,Concurrency,Serializability asks whether a concurrent schedule is equivalent to a?,Serial schedule,Deadlock,Backup,Query plan,1,Easy,Serializable schedules preserve the effect of some serial ordering.
+432,DBMS,Concurrency,A conflict occurs when operations access the same item and at least one is?,A write,A read,A commit only,A lock release,1,Medium,Conflicting operations involve the same data item with at least one write.
+433,DBMS,Concurrency,Two-phase locking has growing and?,Shrinking phases,Sorting phases,Parsing phases,Recovery phases,1,Easy,2PL has a growing phase followed by a shrinking phase.
+434,DBMS,Concurrency,A shared lock generally permits?,Multiple readers,Only one reader,Writes only,No access,1,Easy,Shared locks can be held by multiple readers.
+435,DBMS,Concurrency,An exclusive lock permits?,One writer/accessor,Unlimited writers,Only readers,No transaction,1,Easy,Exclusive access prevents conflicting concurrent operations.
+436,DBMS,Recovery,A log is used in DBMS recovery to record?,Transaction actions,Only table names,Only indexes,CPU instructions,1,Easy,Recovery logs record updates for undo/redo.
+437,DBMS,Recovery,Checkpointing reduces recovery?,Work/time,Database size only,Query syntax,Network bandwidth always,1,Easy,Checkpoints limit how far recovery must scan the log.
+438,DBMS,Recovery,Undo reverses?,Uncommitted effects,Committed effects only,Queries,Indexes only,1,Easy,Undo removes effects of transactions that should not remain.
+439,DBMS,Recovery,Redo reapplies?,Committed effects not yet reflected in storage,Only aborted transactions,SELECT queries,Foreign keys,1,Easy,Redo reconstructs committed updates after failures.
+440,DBMS,Indexing,An index is primarily used to improve?,Data retrieval speed,Data correctness,Normalization,Transaction atomicity,1,Easy,Indexes accelerate lookup operations.
+441,DBMS,Indexing,B+ trees are commonly used for?,Database indexing,Process scheduling,Compiler parsing,Network routing,1,Easy,B+ trees support efficient indexed search and range queries.
+442,DBMS,Indexing,"In a B+ tree, leaf nodes are commonly linked to support?",Sequential/range access,CPU scheduling,Transaction rollback,Parsing,1,Medium,Linked leaves make range scans efficient.
+443,DBMS,Views,A view is a?,Virtual table defined by a query,Physical disk,Primary key,Transaction log,1,Easy,A view is a named query result presented as a virtual table.
+444,DBMS,Views,A view can help provide?,Abstraction/security,CPU scheduling,Memory paging,Instruction decoding,1,Easy,Views can hide underlying details and restrict exposed columns/rows.
+445,DBMS,ER Model,An entity set represents?,Collection of similar entities,Only one attribute,A query result,An index,1,Easy,An entity set groups entities of the same type.
+446,DBMS,ER Model,A relationship represents an?,Association among entities,Attribute value only,Index,SQL command,1,Easy,Relationships connect entity sets.
+447,DBMS,ER Model,A weak entity depends on an?,Owner entity set,Index,Transaction log,View,1,Medium,A weak entity is existence-dependent on an owner entity.
+448,DBMS,Database Design,Denormalization may be used to improve?,Read performance at the cost of redundancy,Atomicity only,Syntax checking,Key uniqueness,1,Medium,Denormalization intentionally adds redundancy for performance in some designs.
+449,DBMS,SQL,The JOIN operation is used to combine related rows from?,Multiple relations,Only one column,Only indexes,Only transactions,1,Easy,JOIN combines rows from related tables based on a condition.
+450,DBMS,Transactions,A COMMIT operation makes transaction changes?,Permanent/visible according to the DBMS,Always undone,Only cached,Invalid,1,Easy,COMMIT completes the transaction and makes its effects durable under normal recovery.
+451,Computer Networks,Network Basics,Which layer of OSI model handles routing?,Physical,Data Link,Network,Application,3,Easy,The Network layer handles logical addressing and routing.
+452,Computer Networks,Network Basics,Which OSI layer provides end-to-end transport?,Network,Transport,Session,Physical,2,Easy,The Transport layer provides end-to-end communication.
+453,Computer Networks,Network Basics,Which OSI layer is closest to the user applications?,Physical,Data Link,Transport,Application,4,Easy,Application is the top OSI layer.
+454,Computer Networks,Network Basics,TCP is?,Connection-oriented,Connectionless only,A routing protocol,A physical protocol,1,Easy,TCP establishes a connection and provides reliable transport.
+455,Computer Networks,Network Basics,UDP is?,Connectionless,Connection-oriented only,A link-layer protocol,A routing algorithm,1,Easy,UDP provides connectionless datagram transport.
+456,Computer Networks,Network Basics,IP operates primarily at the?,Network layer,Transport layer,Application layer,Physical layer,1,Easy,IP provides network-layer addressing and forwarding.
+457,Computer Networks,Data Link,Ethernet is primarily a?,LAN technology,Transport protocol,Routing protocol,Presentation protocol,1,Easy,Ethernet is a common LAN technology.
+458,Computer Networks,Data Link,MAC address identifies a?,Network interface,Process,Application,File,1,Easy,MAC addresses identify network interfaces on local networks.
+459,Computer Networks,Data Link,ARP maps?,IP address to MAC address,MAC to port only,Domain to URL,TCP to UDP,1,Easy,ARP resolves IPv4 addresses to local MAC addresses.
+460,Computer Networks,Data Link,A frame is the data unit at the?,Data Link layer,Network layer,Transport layer,Application layer,1,Easy,Data Link layer packets are frames.
+461,Computer Networks,Error Control,CRC is used for?,Error detection,Encryption,Routing,Compression,1,Easy,Cyclic redundancy checks detect transmission errors.
+462,Computer Networks,Error Control,Parity bit is used for?,Simple error detection,Routing,Flow control only,Addressing,1,Easy,Parity adds a bit to detect certain bit errors.
+463,Computer Networks,Flow Control,Stop-and-wait sends?,One frame before waiting for acknowledgement,All frames without ACK,Only one byte ever,No data,1,Easy,The sender waits for an acknowledgment before proceeding.
+464,Computer Networks,Flow Control,Sliding window permits?,Multiple outstanding frames,No acknowledgements,Only one frame always,Only broadcasts,1,Easy,A window allows several unacknowledged packets in flight.
+465,Computer Networks,Transport,TCP provides?,Reliable ordered byte stream,Unreliable datagrams only,Routing,Ethernet frames,1,Easy,"TCP provides reliable, ordered byte-stream delivery."
+466,Computer Networks,Transport,TCP uses a three-way handshake to?,Establish a connection,Close a file,Assign MAC addresses,Resolve DNS,1,Easy,"SYN, SYN-ACK and ACK establish a TCP connection."
+467,Computer Networks,Transport,TCP connection termination commonly uses?,FIN/ACK exchange,ARP only,DNS only,DHCP only,1,Easy,TCP uses FIN and ACK messages for orderly termination.
+468,Computer Networks,Transport,UDP is useful when applications prefer?,Low overhead and no connection setup,Guaranteed delivery,Ordered byte streams,Built-in congestion recovery,1,Medium,UDP has low overhead but does not guarantee delivery/order.
+469,Computer Networks,Congestion Control,TCP congestion control reacts to?,Network congestion,Only CPU load,Disk space,DNS errors,1,Easy,TCP adjusts sending behavior based on congestion signals.
+470,Computer Networks,Congestion Control,TCP slow start increases congestion window approximately?,Exponentially initially,Always linearly,Never,Randomly,1,Medium,Slow start grows cwnd rapidly until a threshold or congestion event.
+471,Computer Networks,IP Addressing,IPv4 addresses contain?,32 bits,16 bits,64 bits,128 bits,1,Easy,IPv4 uses 32-bit addresses.
+472,Computer Networks,IP Addressing,IPv6 addresses contain?,32 bits,64 bits,128 bits,256 bits,3,Easy,IPv6 uses 128-bit addresses.
+473,Computer Networks,IP Addressing,A subnet mask identifies?,Network and host portions,Only MAC address,Only port,Application name,1,Easy,The mask separates network and host portions.
+474,Computer Networks,IP Addressing,CIDR notation /24 indicates how many network-prefix bits?,8,16,24,32,3,Easy,/24 means the first 24 bits are the prefix.
+475,Computer Networks,Routing,A router forwards packets based mainly on?,Destination IP address,Source MAC only,Port number only,Application data,1,Easy,Routing decisions use destination network information.
+476,Computer Networks,Routing,RIP is a?,Distance-vector routing protocol,Link-state protocol,Transport protocol,LAN cable,1,Easy,RIP uses hop count in a distance-vector approach.
+477,Computer Networks,Routing,OSPF is a?,Link-state routing protocol,Transport protocol,MAC protocol,Application protocol,1,Easy,OSPF uses link-state information and shortest-path computation.
+478,Computer Networks,Routing,BGP is used mainly for?,Inter-domain routing,Local disk access,Transport reliability,MAC learning,1,Easy,BGP exchanges routes between autonomous systems.
+479,Computer Networks,DNS,DNS maps domain names to?,IP addresses and other records,MAC addresses only,Ports only,Processes,1,Easy,DNS resolves names to resource records such as IP addresses.
+480,Computer Networks,DNS,DNS normally uses port?,25,53,80,443,2,Easy,DNS commonly uses port 53.
+481,Computer Networks,HTTP,HTTP commonly uses port?,21,25,80,110,3,Easy,HTTP traditionally uses TCP port 80.
+482,Computer Networks,HTTP,HTTPS commonly uses port?,53,80,443,8080,3,Easy,HTTPS conventionally uses port 443.
+483,Computer Networks,Email,SMTP is used for?,Sending email,Receiving web pages,Routing IP packets,Resolving names,1,Easy,SMTP is a mail transfer protocol used for sending/relaying email.
+484,Computer Networks,Email,POP3 is used for?,Retrieving email,Routing packets,Web browsing,Address resolution,1,Easy,POP3 retrieves email messages from a mail server.
+485,Computer Networks,Email,IMAP is used for?,Email access/synchronization,Routing,DNS,Ethernet,1,Easy,IMAP manages and synchronizes mail stored on a server.
+486,Computer Networks,Application,FTP is used for?,File transfer,Email only,Name resolution,Routing,1,Easy,FTP transfers files between hosts.
+487,Computer Networks,Application,DHCP provides?,Automatic IP configuration,Web encryption,File compression,Routing tables,1,Easy,DHCP assigns network configuration such as IP addresses.
+488,Computer Networks,Application,NAT translates?,Private/public network addresses,TCP into UDP,HTTP into DNS,MAC into ports,1,Easy,NAT rewrites addresses between address realms.
+489,Computer Networks,Security,TLS primarily provides?,Secure communication,Routing,File naming,MAC learning,1,Easy,"TLS provides encryption, integrity and authentication mechanisms."
+490,Computer Networks,Security,A firewall controls traffic based on?,Configured security rules,Only CPU speed,File size,Compiler output,1,Easy,Firewalls enforce traffic policies.
+491,Computer Networks,Security,A denial-of-service attack attempts to?,Make a service unavailable,Improve bandwidth,Encrypt backups only,Resolve DNS,1,Easy,DoS attacks overwhelm or disrupt service availability.
+492,Computer Networks,Network Devices,A switch primarily forwards frames using?,MAC addresses,IP routes only,Port 80,DNS names,1,Easy,Ethernet switches learn and use MAC addresses.
+493,Computer Networks,Network Devices,A hub sends incoming bits to?,All ports,Only destination port intelligently,Only router,Only server,1,Easy,A hub repeats traffic to all ports.
+494,Computer Networks,Network Devices,A bridge operates primarily at?,Data Link layer,Transport layer,Application layer,Physical layer only,1,Easy,Bridges forward frames using link-layer addresses.
+495,Computer Networks,Performance,Bandwidth measures?,Data transfer capacity/rate,Delay only,Packet loss only,Number of routers,1,Easy,"Bandwidth represents capacity, often in bits per second."
+496,Computer Networks,Performance,Latency is the?,Delay experienced by data,Maximum bandwidth,Packet size,Number of hosts,1,Easy,Latency measures time taken for data to travel or be processed.
+497,Computer Networks,Performance,Throughput is the?,Actual rate of successful data transfer,Signal frequency only,Packet header size,Number of switches,1,Easy,Throughput measures achieved data delivery rate.
+498,Computer Networks,Network Security,A digital signature provides?,Authentication/integrity and non-repudiation support,Only compression,Only routing,Only addressing,1,Medium,Digital signatures authenticate the signer and protect message integrity.
+499,Computer Networks,Transport,A TCP port number identifies a?,Transport-layer service endpoint,MAC address,Router,Cable,1,Easy,Ports identify application/service endpoints at the transport layer.
+500,Computer Networks,Application,URL stands for?,Uniform Resource Locator,Universal Routing Link,User Resource Layer,Unified Router Locator,1,Easy,URL means Uniform Resource Locator.

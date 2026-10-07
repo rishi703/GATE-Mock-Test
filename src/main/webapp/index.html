@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GATE CSE Mock Test</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <header class="navbar">
+
+        <div class="logo">
+            GATE<span>CSE</span>
+        </div>
+
+        <nav>
+            <a href="index.html" class="active">Home</a>
+            <a href="#subjects">Subjects</a>
+            <a href="#about">About</a>
+        </nav>
+
+    </header>
+
+
+    <!-- Hero Section -->
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="badge">
+                GATE CSE PRACTICE PLATFORM
+            </div>
+
+            <h1>
+                Prepare Smarter.<br>
+                <span>Perform Better.</span>
+            </h1>
+
+            <p>
+                Practice GATE CSE mock tests, evaluate your performance,
+                and identify the topics that need more attention.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="#subjects" class="primary-btn">
+                    Start Practice
+                </a>
+
+                <a href="#about" class="secondary-btn">
+                    Learn More
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="hero-card">
+
+            <div class="card-header">
+                <span>GATE CSE</span>
+                <span class="status">● Practice</span>
+            </div>
+
+            <div class="score-circle">
+                <strong>10</strong>
+                <small>Subjects</small>
+            </div>
+
+            <div class="card-stats">
+
+                <div>
+                    <strong>MCQ</strong>
+                    <span>Practice</span>
+                </div>
+
+                <div>
+                    <strong>Score</strong>
+                    <span>Analysis</span>
+                </div>
+
+                <div>
+                    <strong>Topic</strong>
+                    <span>Tracking</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Subjects -->
+    <section id="subjects" class="subjects-section">
+
+        <div class="section-heading">
+
+            <span>GATE CSE SYLLABUS</span>
+
+            <h2>
+                Choose Your Subject
+            </h2>
+
+            <p>
+                Select a subject to begin your mock test practice.
+            </p>
+
+        </div>
+
+
+        <div class="subject-grid">
+
+            <div class="subject-card">
+                <div class="subject-number">01</div>
+                <h3>Engineering Mathematics</h3>
+                <p>Mathematical concepts required for GATE CSE.</p>
+                <button onclick="startTest('Engineering Mathematics')">
+                    Start Test →
+                </button>
+            </div>
+
+
+            <div class="subject-card">
+                <div class="subject-number">02</div>
+                <h3>Digital Logic</h3>
+                <p>Boolean algebra, gates, circuits and logic design.</p>
+                <button onclick="startTest('Digital Logic')">
+                    Start Test →
+                </button>
+            </div>
+
+
+            <div class="subject-card">
+                <div class="subject-number">03</div>
+                <h3>Computer Organization</h3>
+                <p>Processors, memory, architecture and I/O systems.</p>
+                <button onclick="startTest('Computer Organization')">
+                    Start Test →
+                </button>
+            </div>
+
+
+            <div class="subject-card">
+                <div class="subject-number">04</div>
+                <h3>Programming & Data Structures</h3>
+                <p>Programming fundamentals and essential data structures.</p>
+                <button onclick="startTest('Programming and Data Structures')">
+                    Start Test →
+                </button>
+            </div>
+
+
+            <div class="subject-card">
+                <div class="subject-number">05</div>
+                <h3>Algorithms</h3>
+                <p>Searching, sorting, graphs, complexity and algorithms.</p>
+                <button onclick="startTest('Algorithms')">
+                    Start Test →
+                </button>
+            </div>
+
+
+            <div class="subject-card">
+                <div class="subject-number">06</div>
+                <h3>Theory of Computation</h3>
+                <p>Automata, formal languages and computability.</p>
+                <button onclick="startTest('Theory of Computation')">
+                    Start Test →
+                </button>
+            </div>
+
+
+            <div class="subject-card">
+                <div class="subject-number">07</div>
+                <h3>Compiler Design</h3>
+                <p>Lexical analysis, parsing and compiler construction.</p>
+                <button onclick="startTest('Compiler Design')">
+                    Start Test →
+                </button>
+            </div>
+
+
+            <div class="subject-card">
+                <div class="subject-number">08</div>
+                <h3>Operating Systems</h3>
+                <p>Processes, scheduling, memory and file systems.</p>
+                <button onclick="startTest('Operating Systems')">
+                    Start Test →
+                </button>
+            </div>
+
+
+            <div class="subject-card">
+                <div class="subject-number">09</div>
+                <h3>Database Management Systems</h3>
+                <p>SQL, normalization, transactions and databases.</p>
+                <button onclick="startTest('DBMS')">
+                    Start Test →
+                </button>
+            </div>
+
+
+            <div class="subject-card">
+                <div class="subject-number">10</div>
+                <h3>Computer Networks</h3>
+                <p>Networking protocols, routing and communication.</p>
+                <button onclick="startTest('Computer Networks')">
+                    Start Test →
+                </button>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- About -->
+    <section id="about" class="about-section">
+
+        <div>
+
+            <span>ABOUT THE PLATFORM</span>
+
+            <h2>
+                Practice. Analyze. Improve.
+            </h2>
+
+            <p>
+                This system is designed to help GATE CSE aspirants
+                practice subject-wise mock tests and understand their
+                performance through detailed analysis.
+            </p>
+
+        </div>
+
+        <div class="feature-list">
+
+            <div>
+                <strong>01</strong>
+                <span>Subject-wise practice</span>
+            </div>
+
+            <div>
+                <strong>02</strong>
+                <span>Automatic evaluation</span>
+            </div>
+
+            <div>
+                <strong>03</strong>
+                <span>Performance analysis</span>
+            </div>
+
+            <div>
+                <strong>04</strong>
+                <span>Weak-topic identification</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <div class="logo">
+            GATE<span>CSE</span>
+        </div>
+
+        <p>
+            GATE CSE Mock Test & Performance Analysis System
+        </p>
+
+    </footer>
+
+
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>
