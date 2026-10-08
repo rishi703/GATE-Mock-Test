@@ -1,3 +1,4 @@
+
 package com.gate.repository;
 
 import com.gate.model.Question;
@@ -26,15 +27,18 @@ public class QuestionRepository {
                      context.getResourceAsStream("/data/questions.csv")) {
 
             if (inputStream == null) {
-                throw new RuntimeException("questions.csv not found.");
+                throw new RuntimeException(
+                        "questions.csv not found."
+                );
             }
 
-            BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(
-                            inputStream,
-                            StandardCharsets.UTF_8
-                    )
-            );
+            BufferedReader reader =
+                    new BufferedReader(
+                            new InputStreamReader(
+                                    inputStream,
+                                    StandardCharsets.UTF_8
+                            )
+                    );
 
             // Skip CSV header
             reader.readLine();
@@ -47,28 +51,59 @@ public class QuestionRepository {
                     continue;
                 }
 
-                List<String> values = parseCSVLine(line);
+                List<String> values =
+                        parseCSVLine(line);
 
                 if (values.size() < 11) {
                     continue;
                 }
 
-                Question question = new Question(
-                        Integer.parseInt(values.get(0)),
-                        values.get(1),
-                        values.get(2),
-                        values.get(3),
-                        values.get(4),
-                        values.get(5),
-                        values.get(6),
-                        values.get(7),
-                        Integer.parseInt(values.get(8)),
-                        values.get(9),
-                        values.get(10)
-                );
+                try {
 
-                questions.add(question);
+                    Question question =
+                            new Question(
+                                    Integer.parseInt(
+                                            values.get(0).trim()
+                                    ),
+
+                                    values.get(1).trim(),
+
+                                    values.get(2).trim(),
+
+                                    values.get(3).trim(),
+
+                                    values.get(4).trim(),
+
+                                    values.get(5).trim(),
+
+                                    values.get(6).trim(),
+
+                                    values.get(7).trim(),
+
+                                    Integer.parseInt(
+                                            values.get(8).trim()
+                                    ),
+
+                                    values.get(9).trim(),
+
+                                    values.get(10).trim()
+                            );
+
+                    questions.add(question);
+
+                } catch (NumberFormatException e) {
+
+                    System.err.println(
+                            "Skipping invalid CSV row: "
+                                    + line
+                    );
+                }
             }
+
+            System.out.println(
+                    "Questions loaded successfully: "
+                            + questions.size()
+            );
 
         } catch (Exception e) {
 
@@ -87,10 +122,23 @@ public class QuestionRepository {
     public List<Question> getQuestionsBySubject(
             String subject) {
 
+        if (subject == null) {
+            return new ArrayList<>();
+        }
+
+        String searchSubject =
+                subject.trim();
+
         return questions.stream()
                 .filter(q ->
+                        q.getSubject() != null
+                                &&
                         q.getSubject()
-                                .equalsIgnoreCase(subject))
+                                .trim()
+                                .equalsIgnoreCase(
+                                        searchSubject
+                                )
+                )
                 .collect(Collectors.toList());
     }
 
@@ -101,62 +149,95 @@ public class QuestionRepository {
         List<Question> subjectQuestions =
                 getQuestionsBySubject(subject);
 
-        Collections.shuffle(subjectQuestions);
-
-        int size = Math.min(
-                count,
-                subjectQuestions.size()
+        Collections.shuffle(
+                subjectQuestions
         );
 
+        int size =
+                Math.min(
+                        count,
+                        subjectQuestions.size()
+                );
+
         return new ArrayList<>(
-                subjectQuestions.subList(0, size)
+                subjectQuestions.subList(
+                        0,
+                        size
+                )
         );
     }
 
     public List<Question> getQuestionsByTopic(
             String topic) {
 
+        if (topic == null) {
+            return new ArrayList<>();
+        }
+
+        String searchTopic =
+                topic.trim();
+
         return questions.stream()
                 .filter(q ->
+                        q.getTopic() != null
+                                &&
                         q.getTopic()
-                                .equalsIgnoreCase(topic))
+                                .trim()
+                                .equalsIgnoreCase(
+                                        searchTopic
+                                )
+                )
                 .collect(Collectors.toList());
     }
 
-    private List<String> parseCSVLine(String line) {
+    private List<String> parseCSVLine(
+            String line) {
 
-        List<String> values = new ArrayList<>();
+        List<String> values =
+                new ArrayList<>();
 
         StringBuilder current =
                 new StringBuilder();
 
         boolean insideQuotes = false;
 
-        for (int i = 0; i < line.length(); i++) {
+        for (int i = 0;
+             i < line.length();
+             i++) {
 
-            char character = line.charAt(i);
+            char character =
+                    line.charAt(i);
 
             if (character == '"') {
 
-                insideQuotes = !insideQuotes;
+                insideQuotes =
+                        !insideQuotes;
 
-            } else if (character == ','
-                    && !insideQuotes) {
+            } else if (
+                    character == ','
+                            &&
+                    !insideQuotes) {
 
                 values.add(
-                        current.toString().trim()
+                        current
+                                .toString()
+                                .trim()
                 );
 
                 current.setLength(0);
 
             } else {
 
-                current.append(character);
+                current.append(
+                        character
+                );
             }
         }
 
         values.add(
-                current.toString().trim()
+                current
+                        .toString()
+                        .trim()
         );
 
         return values;

@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -23,8 +24,39 @@ public class HistoryServlet extends HttpServlet {
             HttpServletResponse response)
             throws ServletException, IOException {
 
+        // =====================================================
+        // GET LOGGED-IN USER
+        // =====================================================
+
+        HttpSession session = request.getSession(false);
+
+        if (session == null) {
+
+            response.sendRedirect("login.html");
+            return;
+        }
+
+        String username =
+                (String) session.getAttribute("username");
+
+        if (username == null ||
+                username.trim().isEmpty()) {
+
+            response.sendRedirect("login.html");
+            return;
+        }
+
+        // =====================================================
+        // GET ONLY THIS USER'S HISTORY
+        // =====================================================
+
         List<String[]> attempts =
-                AttemptedHistoryRepository.getAllAttempts();
+                AttemptedHistoryRepository
+                        .getAttemptsByUsername(username);
+
+        // =====================================================
+        // HTML RESPONSE
+        // =====================================================
 
         response.setContentType(
                 "text/html;charset=UTF-8"
@@ -97,6 +129,11 @@ public class HistoryServlet extends HttpServlet {
                         .title p {
                             margin: 0;
                             color: #6b7280;
+                        }
+
+                        .user-name {
+                            color: #2563eb;
+                            font-weight: bold;
                         }
 
                         .card {
@@ -261,7 +298,14 @@ public class HistoryServlet extends HttpServlet {
                         <h1>GATE Mock Test</h1>
 
                         <span>
-                            Attempt History
+                """);
+
+        out.println(
+                "Logged in as: " +
+                escape(username)
+        );
+
+        out.println("""
                         </span>
 
                     </div>
@@ -273,14 +317,16 @@ public class HistoryServlet extends HttpServlet {
                             <h2>Attempt History</h2>
 
                             <p>
-                                Review your previous mock test
+                                Your previous mock test
                                 performance
                             </p>
 
                         </div>
                 """);
 
-        // Summary section
+        // =====================================================
+        // SUMMARY
+        // =====================================================
 
         out.println("""
                         <div class="summary">
@@ -303,6 +349,10 @@ public class HistoryServlet extends HttpServlet {
 
                         </div>
                 """);
+
+        // =====================================================
+        // NO HISTORY
+        // =====================================================
 
         if (attempts.isEmpty()) {
 
@@ -332,6 +382,10 @@ public class HistoryServlet extends HttpServlet {
 
         } else {
 
+            // =================================================
+            // HISTORY TABLE
+            // =================================================
+
             out.println("""
                         <div class="card">
 
@@ -360,20 +414,22 @@ public class HistoryServlet extends HttpServlet {
                     """);
 
             /*
-             * CSV columns:
+             * New CSV columns:
              *
-             * 0 = Date
-             * 1 = Subject
-             * 2 = Test
-             * 3 = Total
-             * 4 = Attempted
-             * 5 = Correct
-             * 6 = Incorrect
-             * 7 = Unanswered
-             * 8 = Accuracy
-             * 9 = Percentage
+             * 0 = Username
+             * 1 = Date
+             * 2 = Subject
+             * 3 = Test
+             * 4 = Total
+             * 5 = Attempted
+             * 6 = Correct
+             * 7 = Incorrect
+             * 8 = Unanswered
+             * 9 = Accuracy
+             * 10 = Percentage
              */
 
+            // Display newest attempts first
             for (int i = attempts.size() - 1;
                  i >= 0;
                  i--) {
@@ -381,70 +437,82 @@ public class HistoryServlet extends HttpServlet {
                 String[] row =
                         attempts.get(i);
 
-                if (row.length < 10) {
+                if (row.length < 11) {
                     continue;
                 }
 
                 out.println("<tr>");
 
+                // Date
                 out.println(
                         "<td>" +
-                        escape(row[0]) +
-                        "</td>"
-                );
-
-                out.println(
-                        "<td class='subject'>" +
                         escape(row[1]) +
                         "</td>"
                 );
 
+                // Subject
                 out.println(
-                        "<td>" +
+                        "<td class='subject'>" +
                         escape(row[2]) +
                         "</td>"
                 );
 
+                // Test
                 out.println(
                         "<td>" +
                         escape(row[3]) +
                         "</td>"
                 );
 
+                // Total
                 out.println(
                         "<td>" +
                         escape(row[4]) +
                         "</td>"
                 );
 
+                // Attempted
                 out.println(
-                        "<td class='correct'>" +
+                        "<td>" +
                         escape(row[5]) +
                         "</td>"
                 );
 
+                // Correct
                 out.println(
-                        "<td class='incorrect'>" +
+                        "<td class='correct'>" +
                         escape(row[6]) +
                         "</td>"
                 );
 
+                // Incorrect
                 out.println(
-                        "<td class='unanswered'>" +
+                        "<td class='incorrect'>" +
                         escape(row[7]) +
                         "</td>"
                 );
 
+                // Unanswered
                 out.println(
-                        "<td class='accuracy'>" +
+                        "<td class='unanswered'>" +
                         escape(row[8]) +
-                        "%</td>"
+                        "</td>"
                 );
 
+                // Accuracy
+                out.println(
+                        "<td class='accuracy'>" +
+                        escape(row[9]) +
+                        "%" +
+                        "</td>"
+                );
+
+                // Percentage / Score
                 out.println(
                         "<td class='percentage'>" +
-                        escape(row[9]) +
-                        "%</td>"
+                        escape(row[10]) +
+                        "%" +
+                        "</td>"
                 );
 
                 out.println("</tr>");
@@ -458,6 +526,10 @@ public class HistoryServlet extends HttpServlet {
                         </div>
                     """);
         }
+
+        // =====================================================
+        // BUTTONS
+        // =====================================================
 
         out.println("""
                         <div class="buttons">
@@ -481,6 +553,10 @@ public class HistoryServlet extends HttpServlet {
                 </html>
                 """);
     }
+
+    // =========================================================
+    // HTML ESCAPE
+    // =========================================================
 
     private String escape(String value) {
 

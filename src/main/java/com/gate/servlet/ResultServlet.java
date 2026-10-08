@@ -29,6 +29,24 @@ public class ResultServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
 
+        // =====================================================
+        // GET LOGGED-IN USER
+        // =====================================================
+
+        String username =
+                (String) session.getAttribute("username");
+
+        // User must be logged in
+        if (username == null || username.trim().isEmpty()) {
+
+            response.sendRedirect("login.html");
+            return;
+        }
+
+        // =====================================================
+        // GET SUBJECT
+        // =====================================================
+
         String subject =
                 (String) session.getAttribute("currentSubject");
 
@@ -71,6 +89,10 @@ public class ResultServlet extends HttpServlet {
             return;
         }
 
+        // =====================================================
+        // GET QUESTIONS
+        // =====================================================
+
         @SuppressWarnings("unchecked")
         List<Question> questions =
                 (List<Question>) session.getAttribute(
@@ -79,6 +101,10 @@ public class ResultServlet extends HttpServlet {
                         "_test_" +
                         test
                 );
+
+        // =====================================================
+        // GET ANSWERS
+        // =====================================================
 
         @SuppressWarnings("unchecked")
         Map<Integer, Integer> answers =
@@ -96,6 +122,10 @@ public class ResultServlet extends HttpServlet {
 
             answers = new HashMap<>();
         }
+
+        // =====================================================
+        // CALCULATE RESULT
+        // =====================================================
 
         int total = questions.size();
 
@@ -133,6 +163,10 @@ public class ResultServlet extends HttpServlet {
                 }
             }
 
+            // =================================================
+            // TOPIC STATISTICS
+            // =================================================
+
             String topic =
                     q.getTopic();
 
@@ -155,6 +189,10 @@ public class ResultServlet extends HttpServlet {
 
                 topicData[1]++;
             }
+
+            // =================================================
+            // DIFFICULTY STATISTICS
+            // =================================================
 
             String difficulty =
                     q.getDifficulty();
@@ -180,6 +218,10 @@ public class ResultServlet extends HttpServlet {
             }
         }
 
+        // =====================================================
+        // CALCULATE ACCURACY & PERCENTAGE
+        // =====================================================
+
         double accuracy =
                 attempted == 0
                         ? 0
@@ -192,15 +234,20 @@ public class ResultServlet extends HttpServlet {
                         : ((double) correct /
                            total) * 100;
 
+        // =====================================================
+        // SAVE ATTEMPT HISTORY FOR THIS USER
+        // =====================================================
+
         /*
-         * SAVE ATTEMPT HISTORY
+         * The username is included in the history key.
          *
-         * Prevents the same attempt from being
-         * saved repeatedly when ResultServlet
-         * is refreshed.
+         * This prevents one user's attempt from interfering
+         * with another user's attempt in the same session.
          */
         String historyKey =
                 "history_saved_" +
+                username +
+                "_" +
                 subject +
                 "_test_" +
                 test;
@@ -213,6 +260,7 @@ public class ResultServlet extends HttpServlet {
         if (!Boolean.TRUE.equals(historySaved)) {
 
             AttemptedHistoryRepository.saveAttempt(
+                    username,
                     subject,
                     test,
                     total,
@@ -229,6 +277,10 @@ public class ResultServlet extends HttpServlet {
                     Boolean.TRUE
             );
         }
+
+        // =====================================================
+        // RESULT PAGE
+        // =====================================================
 
         response.setContentType(
                 "text/html;charset=UTF-8"
@@ -779,6 +831,10 @@ public class ResultServlet extends HttpServlet {
                 </html>
                 """);
     }
+
+    // =========================================================
+    // HTML ESCAPE
+    // =========================================================
 
     private String escape(String value) {
 

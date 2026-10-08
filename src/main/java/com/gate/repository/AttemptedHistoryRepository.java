@@ -25,7 +25,12 @@ public class AttemptedHistoryRepository {
         return new File(userHome, FILE_NAME);
     }
 
+    // =========================================================
+    // SAVE ATTEMPT
+    // =========================================================
+
     public static synchronized void saveAttempt(
+            String username,
             String subject,
             int test,
             int total,
@@ -59,7 +64,7 @@ public class AttemptedHistoryRepository {
                                              true))) {
 
                     writer.write(
-                            "Date,Subject,Test,Total,"
+                            "Username,Date,Subject,Test,Total,"
                             + "Attempted,Correct,Incorrect,"
                             + "Unanswered,Accuracy,Percentage"
                     );
@@ -83,6 +88,7 @@ public class AttemptedHistoryRepository {
                                          true))) {
 
                 writer.write(
+                        escape(username) + "," +
                         escape(date) + "," +
                         escape(subject) + "," +
                         test + "," +
@@ -111,6 +117,10 @@ public class AttemptedHistoryRepository {
             e.printStackTrace();
         }
     }
+
+    // =========================================================
+    // GET ALL ATTEMPTS
+    // =========================================================
 
     public static List<String[]> getAllAttempts() {
 
@@ -150,6 +160,86 @@ public class AttemptedHistoryRepository {
         return attempts;
     }
 
+    // =========================================================
+    // GET ATTEMPTS FOR ONE USER
+    // =========================================================
+
+    public static List<String[]> getAttemptsByUsername(
+            String username) {
+
+        List<String[]> userAttempts =
+                new ArrayList<>();
+
+        if (username == null ||
+                username.trim().isEmpty()) {
+
+            return userAttempts;
+        }
+
+        File file = getHistoryFile();
+
+        if (!file.exists()) {
+            return userAttempts;
+        }
+
+        try (BufferedReader reader =
+                     new BufferedReader(
+                             new FileReader(file))) {
+
+            // Skip CSV header
+            reader.readLine();
+
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+
+                if (!line.trim().isEmpty()) {
+
+                    String[] data =
+                            parseCsvLine(line);
+
+                    /*
+                     * New format:
+                     *
+                     * 0 = Username
+                     * 1 = Date
+                     * 2 = Subject
+                     * 3 = Test
+                     * 4 = Total
+                     * 5 = Attempted
+                     * 6 = Correct
+                     * 7 = Incorrect
+                     * 8 = Unanswered
+                     * 9 = Accuracy
+                     * 10 = Percentage
+                     */
+
+                    if (data.length >= 11) {
+
+                        String savedUsername =
+                                data[0].trim();
+
+                        if (savedUsername.equalsIgnoreCase(
+                                username.trim())) {
+
+                            userAttempts.add(data);
+                        }
+                    }
+                }
+            }
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+        }
+
+        return userAttempts;
+    }
+
+    // =========================================================
+    // CSV ESCAPE
+    // =========================================================
+
     private static String escape(String value) {
 
         if (value == null) {
@@ -160,6 +250,10 @@ public class AttemptedHistoryRepository {
                 value.replace("\"", "\"\"") +
                 "\"";
     }
+
+    // =========================================================
+    // CSV PARSER
+    // =========================================================
 
     private static String[] parseCsvLine(
             String line) {

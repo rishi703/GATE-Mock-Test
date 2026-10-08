@@ -1,4 +1,3 @@
-
 package com.gate.servlet;
 
 import com.gate.model.Question;
@@ -14,6 +13,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,9 +23,6 @@ public class MockTestServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    /*
-     * 30 minutes
-     */
     private static final long TEST_DURATION =
             30L * 60L * 1000L;
 
@@ -36,195 +33,204 @@ public class MockTestServlet extends HttpServlet {
         repository = new QuestionRepository(getServletContext());
     }
 
+    // ============================================================
+    // GET
+    // ============================================================
+
     @Override
     protected void doGet(HttpServletRequest request,
                           HttpServletResponse response)
             throws ServletException, IOException {
 
-        String subject = request.getParameter("subject");
-        String test = request.getParameter("test");
-        String newAttempt = request.getParameter("newAttempt");
+        // ========================================================
+        // LOGIN CHECK
+        // ========================================================
 
-        if (subject == null || subject.trim().isEmpty()) {
+        HttpSession session =
+                request.getSession(false);
+
+        if (session == null ||
+                session.getAttribute("username") == null) {
+
+            response.sendRedirect("login.html");
+            return;
+        }
+
+        // ========================================================
+        // GET PARAMETERS
+        // ========================================================
+
+        String subject =
+                request.getParameter("subject");
+
+        String test =
+                request.getParameter("test");
+
+        String newAttempt =
+                request.getParameter("newAttempt");
+
+        // ========================================================
+        // SUBJECT CHECK
+        // ========================================================
+
+        if (subject == null ||
+                subject.trim().isEmpty()) {
+
             response.sendRedirect("index.html");
             return;
         }
 
-        if (test == null ||
-                (!test.equals("1") && !test.equals("2"))) {
+        // ========================================================
+        // IF TEST IS NOT SELECTED
+        // SHOW TEST SELECTION
+        // ========================================================
 
-            showTestSelection(request, response, subject);
+        if (test == null ||
+                test.trim().isEmpty()) {
+
+            showTestSelection(
+                    request,
+                    response,
+                    subject
+            );
+
             return;
         }
 
-        HttpSession session = request.getSession();
+        // ========================================================
+        // TEST NUMBER
+        // ========================================================
 
-        String sessionKey =
-                "questions_" + subject + "_test_" + test;
+        int testNumber;
+
+        try {
+
+            testNumber =
+                    Integer.parseInt(test);
+
+        } catch (NumberFormatException e) {
+
+            response.sendRedirect(
+                    "mock-test?subject=" +
+                    subject
+            );
+
+            return;
+        }
+
+        // ========================================================
+        // GET QUESTIONS
+        // ========================================================
+
+        List<Question> allQuestions =
+                repository.getQuestionsBySubject(
+                        subject
+                );
+
+        if (allQuestions == null ||
+                allQuestions.isEmpty()) {
+
+            response.setContentType(
+                    "text/html;charset=UTF-8"
+            );
+
+            PrintWriter out =
+                    response.getWriter();
+
+            out.println("""
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>No Questions</title>
+                    <style>
+                        body {
+                            font-family: Arial, sans-serif;
+                            background: #f5f7fb;
+                            text-align: center;
+                            padding-top: 100px;
+                        }
+
+                        h2 {
+                            color: #333;
+                        }
+
+                        a {
+                            display: inline-block;
+                            margin-top: 20px;
+                            padding: 12px 20px;
+                            background: #3157d5;
+                            color: white;
+                            text-decoration: none;
+                            border-radius: 8px;
+                        }
+                    </style>
+                </head>
+
+                <body>
+
+                    <h2>No questions available for this subject.</h2>
+
+                    <a href="index.html">
+                        Back to Home
+                    </a>
+
+                </body>
+                </html>
+                """);
+
+            return;
+        }
+
+        // ========================================================
+        // CREATE / GET ATTEMPT
+        // ========================================================
+
+        String attemptKey =
+                "attempt_" +
+                subject +
+                "_" +
+                testNumber;
 
         @SuppressWarnings("unchecked")
         List<Question> questions =
-                (List<Question>) session.getAttribute(sessionKey);
+                (List<Question>) session.getAttribute(
+                        attemptKey
+                );
 
-        /*
-         * Start a completely new attempt
-         */
-        if ("true".equals(newAttempt)) {
+        // ========================================================
+        // NEW ATTEMPT
+        // ========================================================
 
-            /*
-             * Save the current attempt before replacing
-             * its answers.
-             */
-            saveCurrentAttempt(session);
+        if ("true".equalsIgnoreCase(newAttempt) ||
+                questions == null) {
 
-            /*
-             * Load questions if they are not already loaded.
-             */
-            if (questions == null) {
-
-                List<Question> allQuestions =
-                        repository.getQuestionsBySubject(subject);
-
-                if (allQuestions.size() < 50) {
-
-                    response.setContentType(
-                            "text/html;charset=UTF-8"
+            questions =
+                    new ArrayList<>(
+                            allQuestions
                     );
 
-                    response.getWriter().println(
-                            "<h2>Not enough questions available.</h2>"
-                    );
-
-                    return;
-                }
-
-                if (test.equals("1")) {
-
-                    questions =
-                            new ArrayList<>(
-                                    allQuestions.subList(0, 25)
-                            );
-
-                } else {
-
-                    questions =
-                            new ArrayList<>(
-                                    allQuestions.subList(25, 50)
-                            );
-                }
-
-                session.setAttribute(
-                        sessionKey,
-                        questions
-                );
-            }
-
-            /*
-             * Fresh answer map
-             */
-            session.setAttribute(
-                    "answers",
-                    new HashMap<Integer, Integer>()
-            );
-
-            /*
-             * Fresh review list
-             */
-            session.setAttribute(
-                    "review",
-                    new ArrayList<Integer>()
-            );
-
-            /*
-             * Start from question 1
-             */
-            session.setAttribute(
-                    "currentIndex",
-                    0
-            );
-
-            session.setAttribute(
-                    "currentSubject",
-                    subject
-            );
-
-            session.setAttribute(
-                    "currentTest",
-                    test
-            );
-
-            session.setAttribute(
-                    "currentAttempt",
-                    System.currentTimeMillis()
-            );
-
-            /*
-             * START 30-MINUTE TIMER
-             */
-            session.setAttribute(
-                    "timerEnd",
-                    System.currentTimeMillis()
-                            + TEST_DURATION
-            );
-        }
-
-        /*
-         * If this is the first time opening the test,
-         * create the test and fresh answer data.
-         */
-        if (questions == null) {
-
-            List<Question> allQuestions =
-                    repository.getQuestionsBySubject(subject);
-
-            if (allQuestions.size() < 50) {
-
-                response.setContentType(
-                        "text/html;charset=UTF-8"
-                );
-
-                response.getWriter().println(
-                        "<h2>Not enough questions available.</h2>"
-                );
-
-                return;
-            }
-
-            if (test.equals("1")) {
-
-                questions =
-                        new ArrayList<>(
-                                allQuestions.subList(0, 25)
-                        );
-
-            } else {
-
-                questions =
-                        new ArrayList<>(
-                                allQuestions.subList(25, 50)
-                        );
-            }
-
-            session.setAttribute(
-                    sessionKey,
+            Collections.shuffle(
                     questions
             );
 
-            session.setAttribute(
-                    "currentIndex",
-                    0
-            );
+            // Maximum 25 questions
+            if (questions.size() > 25) {
+
+                questions =
+                        new ArrayList<>(
+                                questions.subList(
+                                        0,
+                                        25
+                                )
+                        );
+            }
 
             session.setAttribute(
-                    "answers",
-                    new HashMap<Integer, Integer>()
+                    attemptKey,
+                    questions
             );
 
-            session.setAttribute(
-                    "review",
-                    new ArrayList<Integer>()
-            );
-
+            // Save current test information
             session.setAttribute(
                     "currentSubject",
                     subject
@@ -232,299 +238,411 @@ public class MockTestServlet extends HttpServlet {
 
             session.setAttribute(
                     "currentTest",
-                    test
+                    testNumber
             );
 
+            // Start time
             session.setAttribute(
-                    "currentAttempt",
+                    "testStartTime",
                     System.currentTimeMillis()
             );
 
-            /*
-             * START 30-MINUTE TIMER
-             */
-            session.setAttribute(
-                    "timerEnd",
-                    System.currentTimeMillis()
-                            + TEST_DURATION
+            // ====================================================
+            // CLEAR OLD ANSWERS
+            // ====================================================
+
+            String answersKey =
+                    "answers_" +
+                    subject +
+                    "_" +
+                    testNumber;
+
+            session.removeAttribute(
+                    answersKey
+            );
+
+            // ====================================================
+            // CLEAR REVIEW
+            // ====================================================
+
+            String reviewKey =
+                    "review_" +
+                    subject +
+                    "_" +
+                    testNumber;
+
+            session.removeAttribute(
+                    reviewKey
             );
         }
 
-        /*
-         * Make sure an existing test has a timer.
-         */
-        if (session.getAttribute("timerEnd") == null) {
+        // ========================================================
+        // CURRENT QUESTION
+        // ========================================================
 
-            session.setAttribute(
-                    "timerEnd",
-                    System.currentTimeMillis()
-                            + TEST_DURATION
-            );
+        String questionParam =
+                request.getParameter("question");
+
+        int questionIndex = 0;
+
+        if (questionParam != null) {
+
+            try {
+
+                questionIndex =
+                        Integer.parseInt(
+                                questionParam
+                        );
+
+            } catch (NumberFormatException e) {
+
+                questionIndex = 0;
+            }
         }
+
+        // Keep question index valid
+        if (questionIndex < 0) {
+            questionIndex = 0;
+        }
+
+        if (questionIndex >= questions.size()) {
+
+            questionIndex =
+                    questions.size() - 1;
+        }
+
+        // ========================================================
+        // SHOW QUESTION
+        // ========================================================
 
         showQuestion(
                 request,
                 response,
                 subject,
-                test,
-                questions
+                testNumber,
+                questions,
+                questionIndex
         );
     }
 
+    // ============================================================
+    // POST
+    // ============================================================
+
     @Override
     protected void doPost(HttpServletRequest request,
-                           HttpServletResponse response)
+                          HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession();
+        // ========================================================
+        // LOGIN CHECK
+        // ========================================================
+
+        HttpSession session =
+                request.getSession(false);
+
+        if (session == null ||
+                session.getAttribute("username") == null) {
+
+            response.sendRedirect("login.html");
+            return;
+        }
+
+        // ========================================================
+        // CURRENT TEST INFORMATION
+        // ========================================================
 
         String subject =
                 (String) session.getAttribute(
                         "currentSubject"
                 );
 
-        String test =
-                (String) session.getAttribute(
+        Object testObject =
+                session.getAttribute(
                         "currentTest"
                 );
 
-        if (subject == null || test == null) {
-            response.sendRedirect("index.html");
+        if (subject == null ||
+                testObject == null) {
+
+            response.sendRedirect(
+                    "index.html"
+            );
+
             return;
         }
 
-        String sessionKey =
-                "questions_" + subject + "_test_" + test;
+        int testNumber =
+                (Integer) testObject;
+
+        // ========================================================
+        // GET ACTION
+        // ========================================================
+
+        String action =
+                request.getParameter(
+                        "action"
+                );
+
+        // ========================================================
+        // GET QUESTION INDEX
+        // ========================================================
+
+        int questionIndex = 0;
+
+        String questionParam =
+                request.getParameter(
+                        "question"
+                );
+
+        if (questionParam != null) {
+
+            try {
+
+                questionIndex =
+                        Integer.parseInt(
+                                questionParam
+                        );
+
+            } catch (NumberFormatException e) {
+
+                questionIndex = 0;
+            }
+        }
+
+        // ========================================================
+        // GET QUESTIONS
+        // ========================================================
+
+        String attemptKey =
+                "attempt_" +
+                subject +
+                "_" +
+                testNumber;
 
         @SuppressWarnings("unchecked")
         List<Question> questions =
                 (List<Question>) session.getAttribute(
-                        sessionKey
+                        attemptKey
                 );
 
-        @SuppressWarnings("unchecked")
-        Map<Integer, Integer> answers =
-                (Map<Integer, Integer>)
-                        session.getAttribute("answers");
+        if (questions == null ||
+                questions.isEmpty()) {
 
-        @SuppressWarnings("unchecked")
-        List<Integer> review =
-                (List<Integer>)
-                        session.getAttribute("review");
-
-        if (answers == null) {
-            answers = new HashMap<>();
-        }
-
-        if (review == null) {
-            review = new ArrayList<>();
-        }
-
-        Integer currentIndexObject =
-                (Integer) session.getAttribute(
-                        "currentIndex"
-                );
-
-        int currentIndex =
-                currentIndexObject == null
-                        ? 0
-                        : currentIndexObject;
-
-        Question currentQuestion =
-                questions.get(currentIndex);
-
-        /*
-         * Save selected answer
-         */
-        String selected =
-                request.getParameter(
-                        "q" + currentQuestion.getId()
-                );
-
-        if (selected != null) {
-
-            answers.put(
-                    currentQuestion.getId(),
-                    Integer.parseInt(selected)
+            response.sendRedirect(
+                    "mock-test?subject=" +
+                    subject +
+                    "&test=" +
+                    testNumber
             );
-        }
-
-        String action =
-                request.getParameter("action");
-
-        if ("next".equals(action)) {
-
-            if (currentIndex <
-                    questions.size() - 1) {
-
-                currentIndex++;
-            }
-
-        } else if ("previous".equals(action)) {
-
-            if (currentIndex > 0) {
-                currentIndex--;
-            }
-
-        } else if ("review".equals(action)) {
-
-            int id =
-                    currentQuestion.getId();
-
-            if (review.contains(id)) {
-
-                review.remove(
-                        Integer.valueOf(id)
-                );
-
-            } else {
-
-                review.add(id);
-            }
-
-        } else if ("goto".equals(action)) {
-
-            String index =
-                    request.getParameter("index");
-
-            if (index != null) {
-
-                try {
-                    currentIndex =
-                            Integer.parseInt(index);
-                } catch (NumberFormatException e) {
-                    currentIndex = 0;
-                }
-            }
-
-        } else if ("submit".equals(action)) {
-
-            /*
-             * Save the latest answer data before
-             * displaying the result.
-             */
-            session.setAttribute(
-                    "answers",
-                    answers
-            );
-
-            session.setAttribute(
-                    "review",
-                    review
-            );
-
-            session.setAttribute(
-                    sessionKey,
-                    questions
-            );
-
-            /*
-             * Stop timer after submission.
-             */
-            session.removeAttribute("timerEnd");
-
-            response.sendRedirect("result");
 
             return;
         }
 
-        session.setAttribute(
-                "currentIndex",
-                currentIndex
-        );
+        // ========================================================
+        // ANSWERS MAP
+        // ========================================================
 
-        session.setAttribute(
-                "answers",
-                answers
-        );
+        String answersKey =
+                "answers_" +
+                subject +
+                "_" +
+                testNumber;
 
-        session.setAttribute(
-                "review",
-                review
-        );
+        @SuppressWarnings("unchecked")
+        Map<Integer, String> answers =
+                (Map<Integer, String>)
+                        session.getAttribute(
+                                answersKey
+                        );
+
+        if (answers == null) {
+
+            answers =
+                    new HashMap<>();
+
+            session.setAttribute(
+                    answersKey,
+                    answers
+            );
+        }
+
+        // ========================================================
+        // SAVE CURRENT ANSWER
+        // ========================================================
+
+        String selectedAnswer =
+                request.getParameter(
+                        "answer"
+                );
+
+        if (selectedAnswer != null &&
+                !selectedAnswer.trim().isEmpty()) {
+
+            answers.put(
+                    questionIndex,
+                    selectedAnswer
+            );
+        }
+
+        // ========================================================
+        // REVIEW MAP
+        // ========================================================
+
+        String reviewKey =
+                "review_" +
+                subject +
+                "_" +
+                testNumber;
+
+        @SuppressWarnings("unchecked")
+        Map<Integer, Boolean> reviewMap =
+                (Map<Integer, Boolean>)
+                        session.getAttribute(
+                                reviewKey
+                        );
+
+        if (reviewMap == null) {
+
+            reviewMap =
+                    new HashMap<>();
+
+            session.setAttribute(
+                    reviewKey,
+                    reviewMap
+            );
+        }
+
+        // ========================================================
+        // MARK FOR REVIEW
+        // ========================================================
+
+        if ("markReview".equals(action)) {
+
+            reviewMap.put(
+                    questionIndex,
+                    true
+            );
+
+            if (questionIndex <
+                    questions.size() - 1) {
+
+                questionIndex++;
+            }
+        }
+
+        // ========================================================
+        // REMOVE REVIEW
+        // ========================================================
+
+        else if ("removeReview".equals(action)) {
+
+            reviewMap.remove(
+                    questionIndex
+            );
+        }
+
+        // ========================================================
+        // NEXT
+        // ========================================================
+
+        else if ("next".equals(action)) {
+
+            if (questionIndex <
+                    questions.size() - 1) {
+
+                questionIndex++;
+            }
+        }
+
+        // ========================================================
+        // PREVIOUS
+        // ========================================================
+
+        else if ("previous".equals(action)) {
+
+            if (questionIndex > 0) {
+
+                questionIndex--;
+            }
+        }
+
+        // ========================================================
+        // GO TO QUESTION
+        // ========================================================
+
+        else if ("goto".equals(action)) {
+
+            String gotoQuestion =
+                    request.getParameter(
+                            "gotoQuestion"
+                    );
+
+            if (gotoQuestion != null) {
+
+                try {
+
+                    questionIndex =
+                            Integer.parseInt(
+                                    gotoQuestion
+                            );
+
+                } catch (NumberFormatException e) {
+
+                    questionIndex = 0;
+                }
+            }
+        }
+
+        // ========================================================
+        // SUBMIT TEST
+        // ========================================================
+
+        else if ("submit".equals(action) ||
+                 "timeup".equals(action)) {
+
+            response.sendRedirect(
+                    "result?subject=" +
+                    subject +
+                    "&test=" +
+                    testNumber
+            );
+
+            return;
+        }
+
+        // ========================================================
+        // ENSURE INDEX IS VALID
+        // ========================================================
+
+        if (questionIndex < 0) {
+
+            questionIndex = 0;
+        }
+
+        if (questionIndex >= questions.size()) {
+
+            questionIndex =
+                    questions.size() - 1;
+        }
+
+        // ========================================================
+        // SHOW QUESTION
+        // ========================================================
 
         showQuestion(
                 request,
                 response,
                 subject,
-                test,
-                questions
+                testNumber,
+                questions,
+                questionIndex
         );
     }
 
-    /*
-     * Saves the current attempt before a new attempt
-     * is started.
-     */
-    private void saveCurrentAttempt(HttpSession session) {
-
-        String oldSubject =
-                (String) session.getAttribute(
-                        "currentSubject"
-                );
-
-        String oldTest =
-                (String) session.getAttribute(
-                        "currentTest"
-                );
-
-        if (oldSubject == null || oldTest == null) {
-            return;
-        }
-
-        @SuppressWarnings("unchecked")
-        Map<Integer, Integer> oldAnswers =
-                (Map<Integer, Integer>)
-                        session.getAttribute("answers");
-
-        if (oldAnswers == null || oldAnswers.isEmpty()) {
-            return;
-        }
-
-        @SuppressWarnings("unchecked")
-        List<Map<String, Object>> history =
-                (List<Map<String, Object>>)
-                        session.getAttribute(
-                                "attemptHistory"
-                        );
-
-        if (history == null) {
-            history =
-                    new ArrayList<>();
-        }
-
-        Map<String, Object> attempt =
-                new HashMap<>();
-
-        attempt.put(
-                "subject",
-                oldSubject
-        );
-
-        attempt.put(
-                "test",
-                oldTest
-        );
-
-        attempt.put(
-                "answers",
-                new HashMap<Integer, Integer>(
-                        oldAnswers
-                )
-        );
-
-        attempt.put(
-                "date",
-                System.currentTimeMillis()
-        );
-
-        history.add(attempt);
-
-        session.setAttribute(
-                "attemptHistory",
-                history
-        );
-    }
+    // ============================================================
+    // TEST SELECTION PAGE
+    // ============================================================
 
     private void showTestSelection(
             HttpServletRequest request,
@@ -539,235 +657,214 @@ public class MockTestServlet extends HttpServlet {
         PrintWriter out =
                 response.getWriter();
 
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
+        String safeSubject =
+                escapeHtml(subject);
 
-        out.println("<meta charset='UTF-8'>");
+        out.println("""
+            <!DOCTYPE html>
+            <html lang="en">
 
-        out.println(
-                "<meta name='viewport' " +
-                "content='width=device-width, initial-scale=1.0'>"
-        );
+            <head>
 
-        out.println(
-                "<title>GATE CSE Practice Tests</title>"
-        );
+                <meta charset="UTF-8">
 
-        out.println("<style>");
+                <meta name="viewport"
+                      content="width=device-width, initial-scale=1.0">
 
-        out.println("*{box-sizing:border-box;}");
+                <title>Select Test</title>
 
-        out.println(
-                "body{margin:0;" +
-                "font-family:Arial,sans-serif;" +
-                "background:#f4f7fb;" +
-                "color:#1e293b;}"
-        );
+                <style>
 
-        out.println(
-                ".header{background:#0f172a;" +
-                "color:white;" +
-                "padding:18px 40px;}"
-        );
+                    * {
+                        box-sizing: border-box;
+                        margin: 0;
+                        padding: 0;
+                    }
 
-        out.println(
-                ".header h1{margin:0;font-size:22px;}"
-        );
+                    body {
+                        font-family: Arial, sans-serif;
+                        background: #f5f7fb;
+                        min-height: 100vh;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
 
-        out.println(
-                ".container{max-width:850px;" +
-                "margin:55px auto;" +
-                "padding:20px;}"
-        );
+                    .container {
+                        width: 90%;
+                        max-width: 700px;
+                        background: white;
+                        padding: 40px;
+                        border-radius: 16px;
+                        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+                        text-align: center;
+                    }
 
-        out.println(
-                ".title{text-align:center;" +
-                "margin-bottom:35px;}"
-        );
+                    h1 {
+                        color: #222;
+                        margin-bottom: 10px;
+                    }
 
-        out.println(
-                ".title h2{font-size:30px;margin:0 0 10px;}"
-        );
+                    .subject {
+                        color: #3157d5;
+                        font-size: 20px;
+                        font-weight: bold;
+                        margin-bottom: 30px;
+                    }
 
-        out.println(
-                ".title p{color:#64748b;}"
-        );
+                    .tests {
+                        display: grid;
+                        grid-template-columns:
+                            repeat(auto-fit, minmax(220px, 1fr));
+                        gap: 20px;
+                    }
 
-        out.println(
-                ".tests{display:grid;" +
-                "grid-template-columns:repeat(2,1fr);" +
-                "gap:22px;}"
-        );
+                    .test-card {
+                        border: 1px solid #e2e5ec;
+                        border-radius: 12px;
+                        padding: 25px;
+                        transition: 0.2s;
+                    }
 
-        out.println(
-                ".test-card{background:white;" +
-                "padding:30px;" +
-                "border-radius:14px;" +
-                "text-align:center;" +
-                "box-shadow:0 5px 18px rgba(0,0,0,.07);" +
-                "border:1px solid #e2e8f0;}"
-        );
+                    .test-card:hover {
+                        transform: translateY(-4px);
+                        box-shadow:
+                            0 8px 20px rgba(0,0,0,0.08);
+                    }
 
-        out.println(
-                ".test-card h3{margin:0 0 10px;" +
-                "font-size:22px;}"
-        );
+                    .test-card h2 {
+                        margin-bottom: 10px;
+                        color: #222;
+                    }
 
-        out.println(
-                ".test-card p{color:#64748b;" +
-                "font-size:14px;}"
-        );
+                    .test-card p {
+                        color: #666;
+                        margin-bottom: 20px;
+                    }
 
-        out.println(
-                ".start-btn{display:inline-block;" +
-                "margin-top:15px;" +
-                "padding:11px 22px;" +
-                "background:#2563eb;" +
-                "color:white;" +
-                "text-decoration:none;" +
-                "border-radius:7px;" +
-                "font-weight:bold;}"
-        );
+                    .btn {
+                        display: inline-block;
+                        background: #3157d5;
+                        color: white;
+                        text-decoration: none;
+                        padding: 11px 20px;
+                        border-radius: 8px;
+                        font-weight: bold;
+                    }
 
-        out.println(
-                "@media(max-width:650px){" +
-                ".tests{grid-template-columns:1fr;}" +
-                "}"
-        );
+                    .btn:hover {
+                        background: #2445b5;
+                    }
 
-        out.println("</style>");
-        out.println("</head>");
+                    .back {
+                        display: inline-block;
+                        margin-top: 25px;
+                        color: #555;
+                        text-decoration: none;
+                    }
 
-        out.println("<body>");
+                </style>
 
-        out.println(
-                "<div class='header'>" +
-                "<h1>GATE CSE Practice Tests</h1>" +
-                "</div>"
-        );
+            </head>
 
-        out.println(
-                "<div class='container'>"
-        );
+            <body>
 
-        out.println(
-                "<div class='title'>"
-        );
+                <div class="container">
 
-        out.println(
-                "<h2>" + escape(subject) + "</h2>"
-        );
+                    <h1>Select Your Test</h1>
 
-        out.println(
-                "<p>Select a practice test</p>"
-        );
+                    <div class="subject">
+            """);
 
-        out.println("</div>");
+        out.println(safeSubject);
 
-        out.println("<div class='tests'>");
+        out.println("""
+                    </div>
 
-        out.println("<div class='test-card'>");
+                    <div class="tests">
 
-        out.println("<h3>Practice Test 1</h3>");
+                        <div class="test-card">
 
-        out.println("<p>Questions 1 – 25</p>");
+                            <h2>Test 1</h2>
 
-        out.println("<p>25 Questions</p>");
+                            <p>
+                                25 Questions<br>
+                                30 Minutes
+                            </p>
 
-        out.println(
-                "<a class='start-btn' href='mock-test?subject="
-                + encode(subject)
-                + "&test=1&newAttempt=true'>" +
-                "Start Test</a>"
-        );
-
-        out.println("</div>");
-
-        out.println("<div class='test-card'>");
-
-        out.println("<h3>Practice Test 2</h3>");
-
-        out.println("<p>Questions 26 – 50</p>");
-
-        out.println("<p>25 Questions</p>");
+                            <a class="btn"
+                               href="mock-test?subject=
+            """);
 
         out.println(
-                "<a class='start-btn' href='mock-test?subject="
-                + encode(subject)
-                + "&test=2&newAttempt=true'>" +
-                "Start Test</a>"
+                java.net.URLEncoder.encode(
+                        subject,
+                        "UTF-8"
+                )
         );
 
-        out.println("</div>");
+        out.println("""
+                                &test=1&newAttempt=true">
+                                Start Test 1
+                            </a>
 
-        out.println("</div>");
+                        </div>
 
-        out.println("</div>");
 
-        out.println("</body>");
-        out.println("</html>");
+                        <div class="test-card">
+
+                            <h2>Test 2</h2>
+
+                            <p>
+                                25 Questions<br>
+                                30 Minutes
+                            </p>
+
+                            <a class="btn"
+                               href="mock-test?subject=
+            """);
+
+        out.println(
+                java.net.URLEncoder.encode(
+                        subject,
+                        "UTF-8"
+                )
+        );
+
+        out.println("""
+                                &test=2&newAttempt=true">
+                                Start Test 2
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <a class="back"
+                       href="index.html">
+                        ← Back to Home
+                    </a>
+
+                </div>
+
+            </body>
+
+            </html>
+            """);
     }
+
+    // ============================================================
+    // QUESTION PAGE
+    // ============================================================
 
     private void showQuestion(
             HttpServletRequest request,
             HttpServletResponse response,
             String subject,
-            String test,
-            List<Question> questions)
+            int testNumber,
+            List<Question> questions,
+            int questionIndex)
             throws IOException {
-
-        HttpSession session =
-                request.getSession();
-
-        Integer index =
-                (Integer) session.getAttribute(
-                        "currentIndex"
-                );
-
-        int currentIndex =
-                index == null ? 0 : index;
-
-        @SuppressWarnings("unchecked")
-        Map<Integer, Integer> answers =
-                (Map<Integer, Integer>)
-                        session.getAttribute("answers");
-
-        @SuppressWarnings("unchecked")
-        List<Integer> review =
-                (List<Integer>)
-                        session.getAttribute("review");
-
-        if (answers == null) {
-            answers = new HashMap<>();
-        }
-
-        if (review == null) {
-            review = new ArrayList<>();
-        }
-
-        Question question =
-                questions.get(currentIndex);
-
-        /*
-         * Get timer end time
-         */
-        Long timerEnd =
-                (Long) session.getAttribute(
-                        "timerEnd"
-                );
-
-        if (timerEnd == null) {
-
-            timerEnd =
-                    System.currentTimeMillis()
-                            + TEST_DURATION;
-
-            session.setAttribute(
-                    "timerEnd",
-                    timerEnd
-            );
-        }
 
         response.setContentType(
                 "text/html;charset=UTF-8"
@@ -776,377 +873,367 @@ public class MockTestServlet extends HttpServlet {
         PrintWriter out =
                 response.getWriter();
 
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
+        // ========================================================
+        // TIMER
+        // ========================================================
 
-        out.println("<meta charset='UTF-8'>");
+        HttpSession session =
+                request.getSession(false);
+
+        Long startTime =
+                (Long) session.getAttribute(
+                        "testStartTime"
+                );
+
+        long remainingTime =
+                TEST_DURATION;
+
+        if (startTime != null) {
+
+            long elapsed =
+                    System.currentTimeMillis()
+                    - startTime;
+
+            remainingTime =
+                    TEST_DURATION - elapsed;
+        }
+
+        if (remainingTime < 0) {
+
+            remainingTime = 0;
+        }
+
+        long remainingSeconds =
+                remainingTime / 1000;
+
+        // ========================================================
+        // CURRENT QUESTION
+        // ========================================================
+
+        Question question =
+                questions.get(
+                        questionIndex
+                );
+
+        // ========================================================
+        // ANSWERS
+        // ========================================================
+
+        String answersKey =
+                "answers_" +
+                subject +
+                "_" +
+                testNumber;
+
+        @SuppressWarnings("unchecked")
+        Map<Integer, String> answers =
+                (Map<Integer, String>)
+                        session.getAttribute(
+                                answersKey
+                        );
+
+        if (answers == null) {
+
+            answers =
+                    new HashMap<>();
+
+            session.setAttribute(
+                    answersKey,
+                    answers
+            );
+        }
+
+        String selectedAnswer =
+                answers.get(
+                        questionIndex
+                );
+
+        // ========================================================
+        // REVIEW
+        // ========================================================
+
+        String reviewKey =
+                "review_" +
+                subject +
+                "_" +
+                testNumber;
+
+        @SuppressWarnings("unchecked")
+        Map<Integer, Boolean> reviewMap =
+                (Map<Integer, Boolean>)
+                        session.getAttribute(
+                                reviewKey
+                        );
+
+        if (reviewMap == null) {
+
+            reviewMap =
+                    new HashMap<>();
+        }
+
+        boolean markedForReview =
+                Boolean.TRUE.equals(
+                        reviewMap.get(
+                                questionIndex
+                        )
+                );
+
+        // ========================================================
+        // HTML
+        // ========================================================
+
+        out.println("""
+            <!DOCTYPE html>
+            <html lang="en">
+
+            <head>
+
+                <meta charset="UTF-8">
+
+                <meta name="viewport"
+                      content="width=device-width, initial-scale=1.0">
+
+                <title>Mock Test</title>
+
+                <style>
+
+                    * {
+                        box-sizing: border-box;
+                        margin: 0;
+                        padding: 0;
+                    }
+
+                    body {
+                        font-family: Arial, sans-serif;
+                        background: #f4f6fb;
+                        color: #222;
+                    }
+
+                    .topbar {
+                        background: white;
+                        padding: 15px 25px;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        box-shadow:
+                            0 2px 10px rgba(0,0,0,0.06);
+                        position: sticky;
+                        top: 0;
+                        z-index: 100;
+                    }
+
+                    .title {
+                        font-size: 20px;
+                        font-weight: bold;
+                    }
+
+                    .timer {
+                        background: #3157d5;
+                        color: white;
+                        padding: 10px 18px;
+                        border-radius: 8px;
+                        font-size: 18px;
+                        font-weight: bold;
+                    }
+
+                    .timer.warning {
+                        background: #d9534f;
+                    }
+
+                    .main {
+                        display: flex;
+                        gap: 20px;
+                        max-width: 1300px;
+                        margin: 25px auto;
+                        padding: 0 20px;
+                    }
+
+                    .question-area {
+                        flex: 1;
+                        background: white;
+                        border-radius: 12px;
+                        padding: 30px;
+                        min-height: 550px;
+                        box-shadow:
+                            0 5px 20px rgba(0,0,0,0.05);
+                    }
+
+                    .sidebar {
+                        width: 280px;
+                        background: white;
+                        border-radius: 12px;
+                        padding: 20px;
+                        box-shadow:
+                            0 5px 20px rgba(0,0,0,0.05);
+                    }
+
+                    .question-number {
+                        color: #3157d5;
+                        font-weight: bold;
+                        margin-bottom: 15px;
+                    }
+
+                    .question-text {
+                        font-size: 20px;
+                        line-height: 1.6;
+                        margin-bottom: 25px;
+                    }
+
+                    .option {
+                        border: 1px solid #ddd;
+                        padding: 14px;
+                        border-radius: 8px;
+                        margin-bottom: 12px;
+                        cursor: pointer;
+                        transition: 0.2s;
+                    }
+
+                    .option:hover {
+                        border-color: #3157d5;
+                        background: #f5f7ff;
+                    }
+
+                    .option input {
+                        margin-right: 10px;
+                    }
+
+                    .buttons {
+                        display: flex;
+                        justify-content: space-between;
+                        margin-top: 30px;
+                        gap: 10px;
+                        flex-wrap: wrap;
+                    }
+
+                    button {
+                        border: none;
+                        padding: 11px 18px;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        font-weight: bold;
+                    }
+
+                    .previous {
+                        background: #e9ebf0;
+                    }
+
+                    .next {
+                        background: #3157d5;
+                        color: white;
+                    }
+
+                    .review {
+                        background: #f0ad4e;
+                        color: white;
+                    }
+
+                    .submit {
+                        background: #d9534f;
+                        color: white;
+                    }
+
+                    .palette-title {
+                        font-weight: bold;
+                        margin-bottom: 15px;
+                    }
+
+                    .palette {
+                        display: grid;
+                        grid-template-columns:
+                            repeat(5, 1fr);
+                        gap: 8px;
+                    }
+
+                    .palette button {
+                        padding: 9px 5px;
+                        background: #eee;
+                    }
+
+                    .palette button.answered {
+                        background: #5cb85c;
+                        color: white;
+                    }
+
+                    .palette button.current {
+                        outline: 3px solid #3157d5;
+                    }
+
+                    .palette button.reviewed {
+                        background: #f0ad4e;
+                        color: white;
+                    }
+
+                    .info {
+                        margin-top: 20px;
+                        line-height: 1.8;
+                        color: #555;
+                    }
+
+                    @media(max-width: 850px) {
+
+                        .main {
+                            flex-direction: column;
+                        }
+
+                        .sidebar {
+                            width: 100%;
+                        }
+
+                    }
+
+                </style>
+
+            </head>
+
+            <body>
+
+                <div class="topbar">
+
+                    <div class="title">
+                        GATE Mock Test
+                    </div>
+
+                    <div id="timer"
+                         class="timer">
+                        30:00
+                    </div>
+
+                </div>
+
+                <div class="main">
+
+                    <div class="question-area">
+
+            """);
+
+        // ========================================================
+        // QUESTION NUMBER
+        // ========================================================
 
         out.println(
-                "<meta name='viewport' " +
-                "content='width=device-width, initial-scale=1.0'>"
-        );
-
-        out.println(
-                "<title>GATE CSE Practice Test</title>"
-        );
-
-        out.println("<style>");
-
-        out.println("*{box-sizing:border-box;}");
-
-        out.println(
-                "body{margin:0;font-family:Arial,sans-serif;" +
-                "background:#f1f5f9;color:#1e293b;}"
-        );
-
-        out.println(
-                ".header{height:62px;background:#0f172a;" +
-                "color:white;display:flex;align-items:center;" +
-                "justify-content:space-between;padding:0 28px;}"
-        );
-
-        out.println(
-                ".brand{font-size:18px;font-weight:bold;}"
-        );
-
-        out.println(
-                ".test-info{font-size:14px;color:#cbd5e1;}"
-        );
-
-        /*
-         * TIMER STYLE
-         */
-        out.println(
-                ".timer{background:#ffffff;" +
-                "color:#dc2626;" +
-                "padding:8px 14px;" +
-                "border-radius:7px;" +
-                "font-weight:bold;" +
-                "font-size:16px;" +
-                "min-width:90px;" +
-                "text-align:center;" +
-                "border:1px solid #fecaca;}"
-        );
-
-        out.println(
-                ".timer.warning{background:#fef2f2;" +
-                "color:#dc2626;" +
-                "animation:pulse 1s infinite;}"
-        );
-
-        out.println(
-                "@keyframes pulse{" +
-                "50%{opacity:.55;}" +
-                "}"
-        );
-
-        out.println(
-                ".layout{max-width:1150px;margin:25px auto;" +
-                "padding:0 18px;display:grid;" +
-                "grid-template-columns:minmax(0,1fr) 205px;gap:18px;}"
-        );
-
-        out.println(
-                ".question-card{background:white;border:1px solid #e2e8f0;" +
-                "border-radius:12px;padding:28px;" +
-                "box-shadow:0 4px 15px rgba(15,23,42,.05);}"
-        );
-
-        out.println(
-                ".question-top{display:flex;justify-content:space-between;" +
-                "align-items:center;border-bottom:1px solid #e2e8f0;" +
-                "padding-bottom:16px;margin-bottom:22px;}"
-        );
-
-        out.println(
-                ".q-number{font-weight:bold;color:#2563eb;}"
-        );
-
-        out.println(
-                ".q-count{font-size:13px;color:#64748b;}"
-        );
-
-        out.println(
-                ".question{font-size:18px;line-height:1.65;" +
-                "margin-bottom:24px;}"
-        );
-
-        out.println(
-                ".option{display:block;border:1px solid #dbe3ef;" +
-                "border-radius:8px;padding:13px 15px;" +
-                "margin-bottom:10px;cursor:pointer;font-size:15px;}"
-        );
-
-        out.println(
-                ".option:hover{background:#f8fafc;}"
-        );
-
-        out.println(
-                ".option input{margin-right:10px;}"
-        );
-
-        out.println(
-                ".actions{display:flex;gap:8px;margin-top:25px;" +
-                "padding-top:18px;border-top:1px solid #e2e8f0;" +
-                "flex-wrap:wrap;}"
-        );
-
-        out.println(
-                ".btn{border:0;border-radius:7px;padding:10px 16px;" +
-                "font-size:13px;font-weight:bold;cursor:pointer;}"
-        );
-
-        out.println(
-                ".previous{background:#e2e8f0;color:#334155;}"
-        );
-
-        out.println(
-                ".next{background:#2563eb;color:white;}"
-        );
-
-        out.println(
-                ".review-btn{background:#f59e0b;color:white;}"
-        );
-
-        out.println(
-                ".submit{background:#16a34a;color:white;}"
-        );
-
-        out.println(
-                ".palette{background:white;border:1px solid #e2e8f0;" +
-                "border-radius:12px;padding:16px;height:max-content;" +
-                "box-shadow:0 4px 15px rgba(15,23,42,.05);}"
-        );
-
-        out.println(
-                ".palette h3{font-size:15px;margin:0 0 4px;}"
-        );
-
-        out.println(
-                ".palette-subtitle{font-size:11px;color:#64748b;" +
-                "margin-bottom:13px;}"
-        );
-
-        out.println(
-                ".palette-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;}"
-        );
-
-        out.println(
-                ".palette form{margin:0;}"
-        );
-
-        out.println(
-                ".palette button{width:100%;height:30px;border:0;" +
-                "border-radius:5px;font-size:11px;font-weight:bold;" +
-                "cursor:pointer;background:#e2e8f0;color:#334155;}"
-        );
-
-        out.println(
-                ".palette button.current{background:#2563eb;color:white;}"
-        );
-
-        out.println(
-                ".palette button.answered{background:#16a34a;color:white;}"
-        );
-
-        out.println(
-                ".palette button.review{background:#f59e0b;color:white;}"
-        );
-
-        out.println(
-                ".legend{margin-top:15px;border-top:1px solid #e2e8f0;" +
-                "padding-top:12px;}"
-        );
-
-        out.println(
-                ".legend-item{display:flex;align-items:center;gap:7px;" +
-                "font-size:11px;margin:7px 0;color:#475569;}"
-        );
-
-        out.println(
-                ".dot{width:11px;height:11px;border-radius:3px;display:inline-block;}"
-        );
-
-        out.println(".dot.current{background:#2563eb;}");
-        out.println(".dot.answered{background:#16a34a;}");
-        out.println(".dot.unanswered{background:#e2e8f0;border:1px solid #cbd5e1;}");
-        out.println(".dot.review{background:#f59e0b;}");
-
-        out.println(
-                "@media(max-width:800px){" +
-                ".layout{grid-template-columns:1fr;}" +
-                ".palette{order:-1;}" +
-                ".test-info{display:none;}" +
-                ".header{padding:0 15px;}" +
-                "}"
-        );
-
-        out.println("</style>");
-
-        /*
-         * TIMER JAVASCRIPT
-         */
-        out.println("<script>");
-
-        out.println("let timerEnd = " + timerEnd + ";");
-
-        out.println("function startTimer(){");
-
-        out.println(
-                "let timer = document.getElementById('timer');"
-        );
-
-        out.println(
-                "function updateTimer(){"
-        );
-
-        out.println(
-                "let remaining = timerEnd - Date.now();"
-        );
-
-        out.println(
-                "if(remaining <= 0){"
-        );
-
-        out.println(
-                "timer.innerHTML = '00:00';"
-        );
-
-        out.println(
-                "clearInterval(timerInterval);"
-        );
-
-        out.println(
-                "let form = document.getElementById('testForm');"
-        );
-
-        out.println(
-                "let hiddenAction = document.createElement('input');"
-        );
-
-        out.println(
-                "hiddenAction.type = 'hidden';"
-        );
-
-        out.println(
-                "hiddenAction.name = 'action';"
-        );
-
-        out.println(
-                "hiddenAction.value = 'submit';"
-        );
-
-        out.println(
-                "form.appendChild(hiddenAction);"
-        );
-
-        out.println(
-                "form.submit();"
-        );
-
-        out.println(
-                "return;"
-        );
-
-        out.println("}");
-
-        out.println(
-                "let totalSeconds = Math.floor(remaining / 1000);"
-        );
-
-        out.println(
-                "let minutes = Math.floor(totalSeconds / 60);"
-        );
-
-        out.println(
-                "let seconds = totalSeconds % 60;"
-        );
-
-        out.println(
-                "timer.innerHTML = " +
-                "String(minutes).padStart(2,'0') + ':' + " +
-                "String(seconds).padStart(2,'0');"
-        );
-
-        out.println(
-                "if(totalSeconds <= 300){"
-        );
-
-        out.println(
-                "timer.classList.add('warning');"
-        );
-
-        out.println("}");
-
-        out.println("}");
-
-        out.println("updateTimer();");
-
-        out.println(
-                "let timerInterval = setInterval(updateTimer,1000);"
-        );
-
-        out.println("}");
-
-        out.println(
-                "window.onload = startTimer;"
-        );
-
-        out.println("</script>");
-
-        out.println("</head>");
-        out.println("<body>");
-
-        /*
-         * HEADER
-         */
-        out.println(
-                "<div class='header'>" +
-
-                "<div class='brand'>" +
-                "GATE CSE Practice Tests" +
-                "</div>" +
-
-                "<div class='test-info'>" +
-                escape(subject) +
-                " | Practice Test " +
-                escape(test) +
-                " | 25 Questions" +
-                "</div>" +
-
-                "<div id='timer' class='timer'>" +
-                "30:00" +
-                "</div>" +
-
+                "<div class='question-number'>" +
+                "Question " +
+                (questionIndex + 1) +
+                " of " +
+                questions.size() +
                 "</div>"
         );
 
-        out.println("<div class='layout'>");
-
-        out.println("<div class='question-card'>");
+        // ========================================================
+        // QUESTION
+        // ========================================================
 
         out.println(
-                "<div class='question-top'>" +
-                "<div class='q-number'>Question " +
-                (currentIndex + 1) +
-                "</div>" +
-                "<div class='q-count'>25 Questions</div>" +
+                "<div class='question-text'>" +
+                escapeHtml(
+                        question.getQuestion()
+                ) +
                 "</div>"
         );
 
-        out.println(
-                "<div class='question'>" +
-                escape(question.getQuestion()) +
-                "</div>"
-        );
-
-        /*
-         * MAIN TEST FORM
-         */
-        out.println(
-                "<form method='post' action='mock-test' id='testForm'>"
-        );
+        // ========================================================
+        // OPTIONS
+        // ========================================================
 
         String[] options = {
                 question.getOption1(),
@@ -1155,178 +1242,365 @@ public class MockTestServlet extends HttpServlet {
                 question.getOption4()
         };
 
-        for (int i = 0; i < 4; i++) {
+        String[] optionLetters = {
+                "A",
+                "B",
+                "C",
+                "D"
+        };
+
+        out.println(
+                "<form method='post' action='mock-test'>"
+        );
+
+        out.println(
+                "<input type='hidden' name='question' value='" +
+                questionIndex +
+                "'>"
+        );
+
+        for (int i = 0;
+             i < options.length;
+             i++) {
+
+            String letter =
+                    optionLetters[i];
 
             boolean checked =
-                    answers.containsKey(question.getId()) &&
-                    answers.get(question.getId()) == i + 1;
+                    letter.equals(
+                            selectedAnswer
+                    );
 
             out.println(
                     "<label class='option'>"
             );
 
             out.println(
-                    "<input type='radio' name='q" +
-                    question.getId() +
-                    "' value='" +
-                    (i + 1) +
-                    "' " +
-                    (checked ? "checked" : "") +
+                    "<input type='radio' " +
+                    "name='answer' " +
+                    "value='" +
+                    letter +
+                    "'" +
+                    (checked
+                            ? " checked"
+                            : "") +
                     ">"
             );
 
             out.println(
                     "<strong>" +
-                    (char) ('A' + i) +
+                    letter +
                     ".</strong> " +
-                    escape(options[i])
+                    escapeHtml(
+                            options[i]
+                    )
             );
-
-            out.println("</label>");
-        }
-
-        out.println("<div class='actions'>");
-
-        if (currentIndex > 0) {
 
             out.println(
-                    "<button class='btn previous' " +
-                    "name='action' value='previous'>" +
-                    "Previous</button>"
+                    "</label>"
             );
         }
 
-        if (currentIndex < questions.size() - 1) {
+        // ========================================================
+        // BUTTONS
+        // ========================================================
 
-            out.println(
-                    "<button class='btn next' " +
-                    "name='action' value='next'>" +
-                    "Save & Next</button>"
-            );
+        out.println("""
+                    <div class="buttons">
+            """);
+
+        // Previous
+        if (questionIndex > 0) {
+
+            out.println("""
+                        <button
+                            type="submit"
+                            name="action"
+                            value="previous"
+                            class="previous">
+                            ← Previous
+                        </button>
+                """);
         }
 
-        out.println(
-                "<button class='btn review-btn' " +
-                "name='action' value='review'>" +
-                "Mark for Review</button>"
-        );
+        // Review
+        if (markedForReview) {
 
-        if (currentIndex == questions.size() - 1) {
+            out.println("""
+                        <button
+                            type="submit"
+                            name="action"
+                            value="removeReview"
+                            class="review">
+                            Remove Review
+                        </button>
+                """);
 
-            out.println(
-                    "<button class='btn submit' " +
-                    "name='action' value='submit' " +
-                    "onclick=\"return confirm('Are you sure you want to submit the test?');\">" +
-                    "Submit Test</button>"
-            );
+        } else {
+
+            out.println("""
+                        <button
+                            type="submit"
+                            name="action"
+                            value="markReview"
+                            class="review">
+                            Mark for Review
+                        </button>
+                """);
         }
 
-        out.println("</div>");
-        out.println("</form>");
-        out.println("</div>");
+        // Next / Submit
+        if (questionIndex <
+                questions.size() - 1) {
 
-        /*
-         * QUESTION PALETTE
-         */
-        out.println("<div class='palette'>");
+            out.println("""
+                        <button
+                            type="submit"
+                            name="action"
+                            value="next"
+                            class="next">
+                            Save & Next →
+                        </button>
+                """);
 
-        out.println("<h3>Question Palette</h3>");
+        } else {
 
-        out.println(
-                "<div class='palette-subtitle'>" +
-                "Navigate between questions" +
-                "</div>"
-        );
+            out.println("""
+                        <button
+                            type="submit"
+                            name="action"
+                            value="submit"
+                            class="submit">
+                            Submit Test
+                        </button>
+                """);
+        }
 
-        out.println("<div class='palette-grid'>");
+        out.println("""
+                    </div>
 
-        for (int i = 0; i < questions.size(); i++) {
+                </form>
 
-            Question q =
-                    questions.get(i);
+            </div>
 
-            String className = "";
+            <div class="sidebar">
 
-            if (i == currentIndex) {
+                <div class="palette-title">
+                    Question Palette
+                </div>
 
-                className = "current";
+                <div class="palette">
+            """);
 
-            } else if (review.contains(q.getId())) {
+        // ========================================================
+        // QUESTION PALETTE
+        // ========================================================
 
-                className = "review";
+        for (int i = 0;
+             i < questions.size();
+             i++) {
 
-            } else if (answers.containsKey(q.getId())) {
+            String classes = "";
 
-                className = "answered";
+            if (i == questionIndex) {
+
+                classes += " current";
+            }
+
+            if (answers.containsKey(i)) {
+
+                classes += " answered";
+            }
+
+            if (Boolean.TRUE.equals(
+                    reviewMap.get(i))) {
+
+                classes += " reviewed";
             }
 
             out.println(
-                    "<form method='post' action='mock-test'>"
+                    "<form method='post' " +
+                    "action='mock-test' " +
+                    "style='display:inline;'>"
             );
 
             out.println(
-                    "<input type='hidden' name='action' value='goto'>"
-            );
-
-            out.println(
-                    "<input type='hidden' name='index' value='" +
+                    "<input type='hidden' " +
+                    "name='gotoQuestion' " +
+                    "value='" +
                     i +
                     "'>"
             );
 
             out.println(
-                    "<button type='submit' class='" +
-                    className +
+                    "<button " +
+                    "type='submit' " +
+                    "name='action' " +
+                    "value='goto' " +
+                    "class='" +
+                    classes +
                     "'>" +
                     (i + 1) +
                     "</button>"
             );
 
-            out.println("</form>");
+            out.println(
+                    "</form>"
+            );
         }
 
-        out.println("</div>");
+        out.println("""
+                </div>
 
-        out.println("<div class='legend'>");
+                <div class="info">
 
-        out.println(
-                "<div class='legend-item'>" +
-                "<span class='dot current'></span>Current</div>"
-        );
-
-        out.println(
-                "<div class='legend-item'>" +
-                "<span class='dot answered'></span>Answered</div>"
-        );
+                    <p>
+                        <strong>Subject:</strong>
+            """);
 
         out.println(
-                "<div class='legend-item'>" +
-                "<span class='dot unanswered'></span>Not Answered</div>"
+                escapeHtml(subject)
         );
+
+        out.println("""
+                    </p>
+
+                    <p>
+                        <strong>Test:</strong>
+            """);
 
         out.println(
-                "<div class='legend-item'>" +
-                "<span class='dot review'></span>Marked for Review</div>"
+                testNumber
         );
 
-        out.println("</div>");
+        out.println("""
+                    </p>
 
-        out.println("</div>");
-        out.println("</div>");
+                    <p>
+                        <strong>Total Questions:</strong>
+            """);
 
-        out.println("</body>");
-        out.println("</html>");
+        out.println(
+                questions.size()
+        );
+
+        out.println("""
+                    </p>
+
+                    <p>
+                        <strong>Answered:</strong>
+            """);
+
+        out.println(
+                answers.size()
+        );
+
+        out.println("""
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <script>
+
+            let remainingSeconds =
+            """);
+
+        out.println(
+                remainingSeconds
+        );
+
+        out.println("""
+            ;
+
+            const timer =
+                document.getElementById("timer");
+
+            function updateTimer() {
+
+                let minutes =
+                    Math.floor(
+                        remainingSeconds / 60
+                    );
+
+                let seconds =
+                    remainingSeconds % 60;
+
+                let formattedSeconds =
+                    seconds < 10
+                    ? "0" + seconds
+                    : seconds;
+
+                timer.innerText =
+                    minutes +
+                    ":" +
+                    formattedSeconds;
+
+                if (remainingSeconds <= 300) {
+                    timer.classList.add("warning");
+                }
+
+                if (remainingSeconds <= 0) {
+
+                    clearInterval(
+                        timerInterval
+                    );
+
+                    const form =
+                        document.createElement(
+                            "form"
+                        );
+
+                    form.method = "post";
+                    form.action = "mock-test";
+
+                    const action =
+                        document.createElement(
+                            "input"
+                        );
+
+                    action.type = "hidden";
+                    action.name = "action";
+                    action.value = "timeup";
+
+                    form.appendChild(action);
+
+                    document.body.appendChild(form);
+
+                    form.submit();
+
+                    return;
+                }
+
+                remainingSeconds--;
+
+            }
+
+            updateTimer();
+
+            const timerInterval =
+                setInterval(
+                    updateTimer,
+                    1000
+                );
+
+        </script>
+
+        </body>
+
+        </html>
+        """);
     }
 
-    private String encode(String value) {
+    // ============================================================
+    // HTML ESCAPE
+    // ============================================================
 
-        return value
-                .replace("%", "%25")
-                .replace(" ", "%20")
-                .replace("&", "%26");
-    }
-
-    private String escape(String value) {
+    private String escapeHtml(String value) {
 
         if (value == null) {
             return "";

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | GATE PrepHub</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+
+        .login-page {
+            min-height: calc(100vh - 72px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            background:
+                radial-gradient(circle at 15% 20%, #dce5ff 0, transparent 25%),
+                linear-gradient(135deg, #ffffff, #f3f6ff);
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 430px;
+        }
+
+        .login-card {
+            background: #ffffff;
+            border: 1px solid #e5e8f0;
+            border-radius: 18px;
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(27, 39, 70, 0.12);
+        }
+
+        .login-heading {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-heading .login-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: #e8edff;
+            color: #3157d5;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .login-heading h1 {
+            font-size: 32px;
+            letter-spacing: -1px;
+            margin-bottom: 8px;
+        }
+
+        .login-heading p {
+            color: #667085;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 7px;
+            color: #172033;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #dce1eb;
+            border-radius: 9px;
+            font-size: 15px;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        .form-group input:focus {
+            border-color: #3157d5;
+            box-shadow: 0 0 0 3px rgba(49, 87, 213, 0.10);
+        }
+
+        .login-submit {
+            width: 100%;
+            border: none;
+            padding: 13px;
+            border-radius: 9px;
+            background: #3157d5;
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .login-submit:hover {
+            background: #2445b5;
+            transform: translateY(-1px);
+        }
+
+        .login-footer {
+            text-align: center;
+            margin-top: 25px;
+            color: #667085;
+            font-size: 14px;
+        }
+
+        .login-footer a {
+            color: #3157d5;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .login-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .back-home {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-home a {
+            color: #667085;
+            font-size: 13px;
+            text-decoration: none;
+        }
+
+        .back-home a:hover {
+            color: #3157d5;
+        }
+
+        @media (max-width: 500px) {
+
+            .login-card {
+                padding: 30px 22px;
+            }
+
+            .login-heading h1 {
+                font-size: 28px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <header class="navbar">
+
+        <div class="logo">
+            GATE<span>CSE</span>
+        </div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="index.html#subjects">Subjects</a>
+            <a href="index.html#about">About</a>
+        </nav>
+
+    </header>
+
+
+    <!-- Login Section -->
+    <main class="login-page">
+
+        <div class="login-container">
+
+            <div class="login-card">
+
+                <div class="login-heading">
+
+                    <div class="login-badge">
+                        GATE PREPHUB
+                    </div>
+
+                    <h1>Welcome Back</h1>
+
+                    <p>
+                        Login to continue your GATE preparation.
+                    </p>
+
+                </div>
+
+
+                <form action="login" method="post">
+
+                    <div class="form-group">
+
+                        <label for="username">
+                            Username
+                        </label>
+
+                        <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            placeholder="Enter your username"
+                            required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            required>
+
+                    </div>
+
+
+                    <button type="submit" class="login-submit">
+                        Login
+                    </button>
+
+                </form>
+
+
+                <div class="login-footer">
+
+                    Don't have an account?
+                    <a href="signup.html">Create Account</a>
+
+                </div>
+
+            </div>
+
+
+            <div class="back-home">
+
+                <a href="index.html">
+                    ← Back to GATE PrepHub
+                </a>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>
