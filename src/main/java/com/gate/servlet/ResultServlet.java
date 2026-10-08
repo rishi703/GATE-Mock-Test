@@ -12,6 +12,8 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +29,17 @@ public class ResultServlet extends HttpServlet {
             HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession();
+        // =====================================================
+        // GET EXISTING SESSION
+        // =====================================================
+
+        HttpSession session =
+                request.getSession(false);
+
+        if (session == null) {
+            response.sendRedirect("login.html");
+            return;
+        }
 
         // =====================================================
         // GET LOGGED-IN USER
@@ -36,26 +48,30 @@ public class ResultServlet extends HttpServlet {
         String username =
                 (String) session.getAttribute("username");
 
-        // User must be logged in
-        if (username == null || username.trim().isEmpty()) {
+        if (username == null ||
+                username.trim().isEmpty()) {
 
             response.sendRedirect("login.html");
             return;
         }
 
         // =====================================================
-        // GET SUBJECT
+        // GET CURRENT SUBJECT
         // =====================================================
 
         String subject =
-                (String) session.getAttribute("currentSubject");
+                (String) session.getAttribute(
+                        "currentSubject"
+                );
 
-        /*
-         * currentTest may be stored as either
-         * Integer or String.
-         */
+        // =====================================================
+        // GET CURRENT TEST
+        // =====================================================
+
         Object testObject =
-                session.getAttribute("currentTest");
+                session.getAttribute(
+                        "currentTest"
+                );
 
         int test;
 
@@ -83,7 +99,8 @@ public class ResultServlet extends HttpServlet {
             return;
         }
 
-        if (subject == null || subject.trim().isEmpty()) {
+        if (subject == null ||
+                subject.trim().isEmpty()) {
 
             response.sendRedirect("index.html");
             return;
@@ -93,41 +110,79 @@ public class ResultServlet extends HttpServlet {
         // GET QUESTIONS
         // =====================================================
 
+        /*
+         * MockTestServlet stores questions using:
+         *
+         * attempt_<subject>_<test>
+         */
+
+        String attemptKey =
+                "attempt_" +
+                subject +
+                "_" +
+                test;
+
         @SuppressWarnings("unchecked")
         List<Question> questions =
                 (List<Question>) session.getAttribute(
-                        "questions_" +
-                        subject +
-                        "_test_" +
-                        test
+                        attemptKey
                 );
+
+        if (questions == null ||
+                questions.isEmpty()) {
+
+            response.sendRedirect(
+                    "mock-test?subject=" +
+                    URLEncoder.encode(
+                            subject,
+                            StandardCharsets.UTF_8
+                    ) +
+                    "&test=" +
+                    test
+            );
+
+            return;
+        }
 
         // =====================================================
         // GET ANSWERS
         // =====================================================
 
+        /*
+         * MockTestServlet stores answers using:
+         *
+         * answers_<subject>_<test>
+         *
+         * The values are:
+         *
+         * A / B / C / D
+         */
+
+        String answersKey =
+                "answers_" +
+                subject +
+                "_" +
+                test;
+
         @SuppressWarnings("unchecked")
-        Map<Integer, Integer> answers =
-                (Map<Integer, Integer>) session.getAttribute(
-                        "answers"
-                );
-
-        if (questions == null) {
-
-            response.sendRedirect("index.html");
-            return;
-        }
+        Map<Integer, String> answers =
+                (Map<Integer, String>)
+                        session.getAttribute(
+                                answersKey
+                        );
 
         if (answers == null) {
 
-            answers = new HashMap<>();
+            answers =
+                    new HashMap<>();
         }
 
         // =====================================================
         // CALCULATE RESULT
         // =====================================================
 
-        int total = questions.size();
+        int total =
+                questions.size();
 
         int attempted = 0;
         int correct = 0;
@@ -140,12 +195,32 @@ public class ResultServlet extends HttpServlet {
         Map<String, int[]> difficultyStats =
                 new HashMap<>();
 
-        for (Question q : questions) {
+        // =====================================================
+        // PROCESS EACH QUESTION
+        // =====================================================
 
-            Integer selected =
-                    answers.get(q.getId());
+        for (int i = 0;
+             i < questions.size();
+             i++) {
 
-            if (selected == null) {
+            Question q =
+                    questions.get(i);
+
+            /*
+             * Answers are stored using the question INDEX,
+             * not the question ID.
+             */
+            String selectedLetter =
+                    answers.get(i);
+
+            boolean isCorrect = false;
+
+            // =================================================
+            // CHECK ANSWER
+            // =================================================
+
+            if (selectedLetter == null ||
+                    selectedLetter.trim().isEmpty()) {
 
                 unanswered++;
 
@@ -153,9 +228,16 @@ public class ResultServlet extends HttpServlet {
 
                 attempted++;
 
-                if (selected == q.getAnswer()) {
+                int selectedNumber =
+                        convertAnswerToNumber(
+                                selectedLetter
+                        );
+
+                if (selectedNumber ==
+                        q.getAnswer()) {
 
                     correct++;
+                    isCorrect = true;
 
                 } else {
 
@@ -184,9 +266,7 @@ public class ResultServlet extends HttpServlet {
 
             topicData[0]++;
 
-            if (selected != null &&
-                    selected == q.getAnswer()) {
-
+            if (isCorrect) {
                 topicData[1]++;
             }
 
@@ -211,15 +291,13 @@ public class ResultServlet extends HttpServlet {
 
             difficultyData[0]++;
 
-            if (selected != null &&
-                    selected == q.getAnswer()) {
-
+            if (isCorrect) {
                 difficultyData[1]++;
             }
         }
 
         // =====================================================
-        // CALCULATE ACCURACY & PERCENTAGE
+        // ACCURACY
         // =====================================================
 
         double accuracy =
@@ -235,15 +313,9 @@ public class ResultServlet extends HttpServlet {
                            total) * 100;
 
         // =====================================================
-        // SAVE ATTEMPT HISTORY FOR THIS USER
+        // SAVE ATTEMPT HISTORY
         // =====================================================
 
-        /*
-         * The username is included in the history key.
-         *
-         * This prevents one user's attempt from interfering
-         * with another user's attempt in the same session.
-         */
         String historyKey =
                 "history_saved_" +
                 username +
@@ -505,6 +577,7 @@ public class ResultServlet extends HttpServlet {
                             .container {
                                 margin-top: 20px;
                             }
+
                         }
 
                     </style>
@@ -798,14 +871,16 @@ public class ResultServlet extends HttpServlet {
                 """);
 
         out.print(
-                java.net.URLEncoder.encode(
+                URLEncoder.encode(
                         subject,
-                        java.nio.charset.StandardCharsets.UTF_8
+                        StandardCharsets.UTF_8
                 )
         );
 
         out.println(
-                "&test=" + test + "\">"
+                "&test=" +
+                test +
+                "&newAttempt=true\">"
         );
 
         out.println("""
@@ -830,6 +905,36 @@ public class ResultServlet extends HttpServlet {
 
                 </html>
                 """);
+    }
+
+    // =========================================================
+    // CONVERT A/B/C/D TO 1/2/3/4
+    // =========================================================
+
+    private int convertAnswerToNumber(
+            String answer) {
+
+        if (answer == null) {
+            return -1;
+        }
+
+        switch (answer.trim().toUpperCase()) {
+
+            case "A":
+                return 1;
+
+            case "B":
+                return 2;
+
+            case "C":
+                return 3;
+
+            case "D":
+                return 4;
+
+            default:
+                return -1;
+        }
     }
 
     // =========================================================
