@@ -63,6 +63,27 @@
             font-size: 14px;
         }
 
+        .auth-message {
+            display: none;
+            padding: 12px 14px;
+            border-radius: 9px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .auth-message.error {
+            background: #fdecec;
+            border: 1px solid #f5b8b8;
+            color: #b42318;
+        }
+
+        .auth-message.success {
+            background: #e8f7ee;
+            border: 1px solid #b2e0c3;
+            color: #177245;
+        }
+
         .form-group {
             margin-bottom: 18px;
         }
@@ -197,6 +218,9 @@
                 </div>
 
 
+                <div id="auth-message" class="auth-message"></div>
+
+
                 <form action="signup" method="post">
 
                     <div class="form-group">
@@ -307,6 +331,49 @@
         </div>
 
     </main>
+
+    <script>
+
+        (function () {
+
+            var params =
+                new URLSearchParams(window.location.search);
+
+            var box =
+                document.getElementById("auth-message");
+
+            var errorMessages = {
+                empty: "Please fill in all fields.",
+                email: "Please enter a valid email address.",
+                usernameformat:
+                    "Username must be 3-20 characters " +
+                    "and contain only letters, numbers " +
+                    "or underscores.",
+                passwordshort:
+                    "Password must be at least " +
+                    "6 characters long.",
+                password:
+                    "Passwords do not match. " +
+                    "Please try again.",
+                username:
+                    "That username is already taken. " +
+                    "Please choose another."
+            };
+
+            var error = params.get("error");
+
+            if (error && errorMessages[error]) {
+
+                box.textContent = errorMessages[error];
+                box.className = "auth-message error";
+                box.style.display = "block";
+
+                window.history.replaceState(
+                    null, "", window.location.pathname);
+            }
+        })();
+
+    </script>
 
 </body>
 

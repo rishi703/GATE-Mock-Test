@@ -1,5 +1,8 @@
 package com.gate.servlet;
 
+import com.gate.repository.UserRepository;
+import com.gate.util.PasswordUtil;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -7,9 +10,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 
 @WebServlet("/login")
@@ -28,83 +28,48 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         // Check empty fields
-        if (username == null || password == null ||
-            username.trim().isEmpty() ||
-            password.trim().isEmpty()) {
+        if (username == null || password == null
+                || username.trim().isEmpty()
+                || password.isEmpty()) {
 
             response.sendRedirect("login.html?error=empty");
             return;
         }
 
-        // Get users.csv path
-        String filePath = getServletContext()
-                .getRealPath("/data/users.csv");
+        // Look up user
+        UserRepository.User user =
+                UserRepository.findByUsername(username);
 
-        File file = new File(filePath);
+        if (user == null) {
 
-        // Check if users file exists
-        if (!file.exists()) {
-
-            response.sendRedirect("login.html?error=noaccount");
+            response.sendRedirect("login.html?error=invalid");
             return;
         }
 
-        boolean loginSuccessful = false;
+        // Verify password (supports legacy plaintext rows)
+        if (!PasswordUtil.verify(
+                password, user.getStoredPassword())) {
 
-        String loggedInName = "";
-        String loggedInEmail = "";
+            response.sendRedirect("login.html?error=invalid");
+            return;
+        }
 
-        // Read users.csv
-        try (BufferedReader reader =
-                     new BufferedReader(new FileReader(file))) {
+        // Transparent migration: upgrade a legacy plaintext
+        // row to a hashed password on first successful login
+        if (!PasswordUtil.isHashed(user.getStoredPassword())) {
 
-            // Skip header
-            reader.readLine();
-
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-
-                String[] data = line.split(",", -1);
-
-                if (data.length >= 4) {
-
-                    String name = data[0].trim();
-                    String savedUsername = data[1].trim();
-                    String email = data[2].trim();
-                    String savedPassword = data[3];
-
-                    // Check username and password
-                    if (savedUsername.equalsIgnoreCase(username.trim())
-                            && savedPassword.equals(password)) {
-
-                        loginSuccessful = true;
-
-                        loggedInName = name;
-                        loggedInEmail = email;
-
-                        break;
-                    }
-                }
-            }
+            UserRepository.updatePassword(
+                    user.getUsername(),
+                    PasswordUtil.hash(password));
         }
 
         // Login successful
-        if (loginSuccessful) {
+        HttpSession session = request.getSession(true);
 
-            HttpSession session = request.getSession();
+        session.setAttribute("username", user.getUsername());
+        session.setAttribute("name", user.getName());
+        session.setAttribute("email", user.getEmail());
 
-            session.setAttribute("username", username.trim());
-            session.setAttribute("name", loggedInName);
-            session.setAttribute("email", loggedInEmail);
-
-            // Redirect to home page
-            response.sendRedirect("index.html");
-
-        } else {
-
-            // Login failed
-            response.sendRedirect("login.html?error=invalid");
-        }
+        response.sendRedirect("index.html");
     }
 }

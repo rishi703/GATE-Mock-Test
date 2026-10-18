@@ -63,6 +63,27 @@
             font-size: 14px;
         }
 
+        .auth-message {
+            display: none;
+            padding: 12px 14px;
+            border-radius: 9px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .auth-message.error {
+            background: #fdecec;
+            border: 1px solid #f5b8b8;
+            color: #b42318;
+        }
+
+        .auth-message.success {
+            background: #e8f7ee;
+            border: 1px solid #b2e0c3;
+            color: #177245;
+        }
+
         .form-group {
             margin-bottom: 20px;
         }
@@ -195,6 +216,9 @@
                 </div>
 
 
+                <div id="auth-message" class="auth-message"></div>
+
+
                 <form action="login" method="post">
 
                     <div class="form-group">
@@ -257,6 +281,53 @@
         </div>
 
     </main>
+
+    <script>
+
+        (function () {
+
+            var params =
+                new URLSearchParams(window.location.search);
+
+            var box =
+                document.getElementById("auth-message");
+
+            var errorMessages = {
+                empty: "Please fill in all fields.",
+                invalid: "Invalid username or password."
+            };
+
+            var successMessages = {
+                registered:
+                    "Account created successfully! " +
+                    "You can now log in."
+            };
+
+            var error = params.get("error");
+            var success = params.get("success");
+
+            if (error && errorMessages[error]) {
+
+                box.textContent = errorMessages[error];
+                box.className = "auth-message error";
+                box.style.display = "block";
+
+            } else if (success && successMessages[success]) {
+
+                box.textContent = successMessages[success];
+                box.className = "auth-message success";
+                box.style.display = "block";
+            }
+
+            // Clean the URL so a refresh doesn't
+            // re-show the same message
+            if (error || success) {
+                window.history.replaceState(
+                    null, "", window.location.pathname);
+            }
+        })();
+
+    </script>
 
 </body>
 
