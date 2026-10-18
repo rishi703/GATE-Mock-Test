@@ -385,17 +385,17 @@ public class ResultServlet extends HttpServlet {
                             margin: 0;
                             font-family: Arial, sans-serif;
                             background: #f4f6f9;
-                            color: #1f2937;
-                        }
+                            background: #0f172a;
+                            color: #e2e8f0;
 
                         .header {
                             background: #111827;
-                            color: white;
+                            background: #0f172a;
                             padding: 18px 40px;
                             display: flex;
                             justify-content: space-between;
                             align-items: center;
-                        }
+                            border-bottom: 1px solid #1e293b;
 
                         .header h1 {
                             margin: 0;
@@ -404,7 +404,7 @@ public class ResultServlet extends HttpServlet {
 
                         .header span {
                             color: #d1d5db;
-                            font-size: 14px;
+                            color: #cbd5e1;
                         }
 
                         .container {
@@ -425,19 +425,19 @@ public class ResultServlet extends HttpServlet {
 
                         .title p {
                             color: #6b7280;
-                            margin: 0;
+                            color: #cbd5e1;
                         }
 
                         .score-card {
                             background: white;
-                            border-radius: 14px;
+                            background: #1e293b;
                             padding: 30px;
                             text-align: center;
                             box-shadow:
                                 0 4px 15px
                                 rgba(0,0,0,0.08);
-                            margin-bottom: 25px;
-                        }
+                            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+                            border: 1px solid #334155;
 
                         .score {
                             font-size: 52px;
@@ -447,7 +447,7 @@ public class ResultServlet extends HttpServlet {
 
                         .score-label {
                             color: #6b7280;
-                            font-size: 15px;
+                            color: #cbd5e1;
                         }
 
                         .stats {
@@ -460,14 +460,14 @@ public class ResultServlet extends HttpServlet {
 
                         .stat {
                             background: white;
-                            border-radius: 12px;
+                            background: #1e293b;
                             padding: 22px;
                             text-align: center;
                             box-shadow:
                                 0 3px 12px
                                 rgba(0,0,0,0.06);
-                        }
-
+                            box-shadow: 0 3px 12px rgba(0,0,0,0.4);
+                            border: 1px solid #334155;
                         .stat h3 {
                             margin: 0;
                             font-size: 28px;
@@ -476,7 +476,7 @@ public class ResultServlet extends HttpServlet {
                         .stat p {
                             margin: 7px 0 0;
                             color: #6b7280;
-                            font-size: 14px;
+                            color: #cbd5e1;
                         }
 
                         .correct h3 {
@@ -497,14 +497,14 @@ public class ResultServlet extends HttpServlet {
 
                         .section {
                             background: white;
-                            padding: 25px;
+                            background: #1e293b;
                             border-radius: 12px;
                             margin-bottom: 25px;
                             box-shadow:
                                 0 3px 12px
                                 rgba(0,0,0,0.06);
-                        }
-
+                            box-shadow: 0 3px 12px rgba(0,0,0,0.4);
+                            border: 1px solid #334155;
                         .section h3 {
                             margin-top: 0;
                             margin-bottom: 18px;
@@ -519,14 +519,14 @@ public class ResultServlet extends HttpServlet {
                         td {
                             padding: 12px;
                             border-bottom: 1px solid
-                                       #e5e7eb;
+                            border-bottom: 1px solid #334155;
                             text-align: left;
                         }
 
                         th {
                             background: #f9fafb;
-                            font-size: 14px;
-                        }
+                            background: #0f172a;
+                            color: #e2e8f0;
 
                         td {
                             font-size: 14px;
@@ -550,17 +550,17 @@ public class ResultServlet extends HttpServlet {
 
                         .dashboard {
                             background: #111827;
-                            color: white;
+                            background: #4d7cfe;
                         }
 
                         .again {
                             background: #2563eb;
-                            color: white;
+                            background: #4d7cfe;
                         }
 
                         .history {
                             background: #16a34a;
-                            color: white;
+                            background: #4d7cfe;
                         }
 
                         @media (max-width: 700px) {

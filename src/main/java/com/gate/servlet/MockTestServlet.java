@@ -684,7 +684,7 @@ public class MockTestServlet extends HttpServlet {
                     body {
                         font-family: Arial, sans-serif;
                         background: #f5f7fb;
-                        min-height: 100vh;
+                        background: #0f172a;
                         display: flex;
                         justify-content: center;
                         align-items: center;
@@ -694,20 +694,20 @@ public class MockTestServlet extends HttpServlet {
                         width: 90%;
                         max-width: 700px;
                         background: white;
-                        padding: 40px;
+                        background: #1e293b;
                         border-radius: 16px;
                         box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-                        text-align: center;
+                        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
                     }
 
                     h1 {
                         color: #222;
-                        margin-bottom: 10px;
+                        color: #f1f5f9;
                     }
 
                     .subject {
                         color: #3157d5;
-                        font-size: 20px;
+                        color: #4d7cfe;
                         font-weight: bold;
                         margin-bottom: 30px;
                     }
@@ -721,7 +721,7 @@ public class MockTestServlet extends HttpServlet {
 
                     .test-card {
                         border: 1px solid #e2e5ec;
-                        border-radius: 12px;
+                        border: 1px solid #334155;
                         padding: 25px;
                         transition: 0.2s;
                     }
@@ -730,22 +730,22 @@ public class MockTestServlet extends HttpServlet {
                         transform: translateY(-4px);
                         box-shadow:
                             0 8px 20px rgba(0,0,0,0.08);
-                    }
+                            0 8px 20px rgba(0,0,0,0.5);
 
                     .test-card h2 {
                         margin-bottom: 10px;
                         color: #222;
-                    }
+                        color: #f1f5f9;
 
                     .test-card p {
                         color: #666;
-                        margin-bottom: 20px;
+                        color: #cbd5e1;
                     }
 
                     .btn {
                         display: inline-block;
                         background: #3157d5;
-                        color: white;
+                        background: #4d7cfe;
                         text-decoration: none;
                         padding: 11px 20px;
                         border-radius: 8px;
@@ -754,13 +754,13 @@ public class MockTestServlet extends HttpServlet {
 
                     .btn:hover {
                         background: #2445b5;
-                    }
+                        background: #3b6ce6;
 
                     .back {
                         display: inline-block;
                         margin-top: 25px;
                         color: #555;
-                        text-decoration: none;
+                        color: #94a3b8;
                     }
 
                 </style>
@@ -1006,19 +1006,19 @@ public class MockTestServlet extends HttpServlet {
                     body {
                         font-family: Arial, sans-serif;
                         background: #f4f6fb;
-                        color: #222;
-                    }
+                        background: #0f172a;
+                        color: #e2e8f0;
 
                     .topbar {
                         background: white;
-                        padding: 15px 25px;
+                        background: #0f172a;
                         display: flex;
                         justify-content: space-between;
                         align-items: center;
                         box-shadow:
                             0 2px 10px rgba(0,0,0,0.06);
-                        position: sticky;
-                        top: 0;
+                            0 2px 10px rgba(0,0,0,0.4);
+                        border-bottom: 1px solid #1e293b;
                         z-index: 100;
                     }
 
@@ -1029,7 +1029,7 @@ public class MockTestServlet extends HttpServlet {
 
                     .timer {
                         background: #3157d5;
-                        color: white;
+                        background: #4d7cfe;
                         padding: 10px 18px;
                         border-radius: 8px;
                         font-size: 18px;
@@ -1051,25 +1051,25 @@ public class MockTestServlet extends HttpServlet {
                     .question-area {
                         flex: 1;
                         background: white;
-                        border-radius: 12px;
+                        background: #1e293b;
                         padding: 30px;
                         min-height: 550px;
                         box-shadow:
                             0 5px 20px rgba(0,0,0,0.05);
-                    }
+                            0 5px 20px rgba(0,0,0,0.4);
 
                     .sidebar {
                         width: 280px;
                         background: white;
-                        border-radius: 12px;
+                        background: #1e293b;
                         padding: 20px;
                         box-shadow:
                             0 5px 20px rgba(0,0,0,0.05);
-                    }
+                            0 5px 20px rgba(0,0,0,0.4);
 
                     .question-number {
                         color: #3157d5;
-                        font-weight: bold;
+                        color: #4d7cfe;
                         margin-bottom: 15px;
                     }
 
@@ -1081,7 +1081,7 @@ public class MockTestServlet extends HttpServlet {
 
                     .option {
                         border: 1px solid #ddd;
-                        padding: 14px;
+                        border: 1px solid #334155;
                         border-radius: 8px;
                         margin-bottom: 12px;
                         cursor: pointer;
@@ -1090,8 +1090,8 @@ public class MockTestServlet extends HttpServlet {
 
                     .option:hover {
                         border-color: #3157d5;
-                        background: #f5f7ff;
-                    }
+                        border-color: #4d7cfe;
+                        background: rgba(77, 124, 254, 0.15);
 
                     .option input {
                         margin-right: 10px;
@@ -1115,21 +1115,21 @@ public class MockTestServlet extends HttpServlet {
 
                     .previous {
                         background: #e9ebf0;
-                    }
+                        background: #334155;
 
                     .next {
                         background: #3157d5;
-                        color: white;
+                        background: #4d7cfe;
                     }
 
                     .review {
                         background: #f0ad4e;
-                        color: white;
+                        background: #d97706;
                     }
 
                     .submit {
                         background: #d9534f;
-                        color: white;
+                        background: #dc2626;
                     }
 
                     .palette-title {
@@ -1147,7 +1147,7 @@ public class MockTestServlet extends HttpServlet {
                     .palette button {
                         padding: 9px 5px;
                         background: #eee;
-                    }
+                        background: #334155;
 
                     .palette button.answered {
                         background: #5cb85c;
@@ -1156,7 +1156,7 @@ public class MockTestServlet extends HttpServlet {
 
                     .palette button.current {
                         outline: 3px solid #3157d5;
-                    }
+                        outline: 3px solid #4d7cfe;
 
                     .palette button.reviewed {
                         background: #f0ad4e;
@@ -1167,7 +1167,7 @@ public class MockTestServlet extends HttpServlet {
                         margin-top: 20px;
                         line-height: 1.8;
                         color: #555;
-                    }
+                        color: #94a3b8;
 
                     @media(max-width: 850px) {
 
