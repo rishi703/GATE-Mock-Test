@@ -10,8 +10,8 @@ html {
 
 body {
     font-family: "Segoe UI", Arial, sans-serif;
-    background: #f6f8fc;
-    color: #172033;
+    background: #0f172a;
+    color: #e2e8f0;
     line-height: 1.6;
 }
 
@@ -22,45 +22,56 @@ body {
 
 .navbar {
     height: 72px;
-    padding: 0 7%;
+    padding: 0 5%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: #ffffff;
-    border-bottom: 1px solid #e8ebf2;
+    background: rgba(15, 23, 42, 0.98);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid #1e293b;
     position: sticky;
     top: 0;
     z-index: 1000;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 30px;
 }
 
 .logo {
     font-size: 25px;
     font-weight: 800;
     letter-spacing: -1px;
-    color: #172033;
+    color: #f1f5f9;
 }
 
 .logo span {
-    color: #3157d5;
+    color: #4d7cfe;
 }
 
 .navbar nav {
     display: flex;
     align-items: center;
-    gap: 32px;
+    gap: 28px;
 }
 
 .navbar nav a {
     text-decoration: none;
-    color: #667085;
+    color: #94a3b8;
     font-size: 15px;
     font-weight: 600;
     transition: 0.2s;
+    padding: 6px 8px;
+    border-radius: 6px;
 }
 
 .navbar nav a:hover,
 .navbar nav a.active {
-    color: #3157d5;
+    color: #4d7cfe;
+    background: rgba(77, 124, 254, 0.15);
 }
 
 
@@ -69,19 +80,25 @@ body {
 ========================= */
 
 .navbar nav .login-btn {
-    background: #3157d5;
+    background: #4d7cfe;
     color: white;
     padding: 9px 20px;
     border-radius: 8px;
     font-size: 14px;
     font-weight: 700;
     transition: 0.2s;
+    border: none;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .navbar nav .login-btn:hover {
-    background: #2445b5;
+    background: #3b6ce6;
     color: white;
     transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(77, 124, 254, 0.25);
 }
 
 
@@ -506,4 +523,12 @@ footer p {
 
 .logout-btn {
     cursor: pointer;
+    background: rgba(239, 68, 68, 0.15);
+    color: #fca5a5;
+    border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+.logout-btn:hover {
+    background: rgba(239, 68, 68, 0.25);
+    color: #fee2e2;
 }

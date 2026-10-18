@@ -88,17 +88,18 @@ public class HistoryServlet extends HttpServlet {
                         body {
                             margin: 0;
                             font-family: Arial, sans-serif;
-                            background: #f4f6f9;
-                            color: #1f2937;
+                            background: #0f172a;
+                            color: #e2e8f0;
                         }
 
                         .header {
-                            background: #111827;
+                            background: #0f172a;
                             color: white;
                             padding: 18px 40px;
                             display: flex;
                             justify-content: space-between;
                             align-items: center;
+                            border-bottom: 1px solid #1e293b;
                         }
 
                         .header h1 {
@@ -137,13 +138,12 @@ public class HistoryServlet extends HttpServlet {
                         }
 
                         .card {
-                            background: white;
+                            background: #1e293b;
                             border-radius: 14px;
                             padding: 25px;
-                            box-shadow:
-                                0 4px 15px
-                                rgba(0,0,0,0.07);
+                            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
                             overflow-x: auto;
+                            border: 1px solid #334155;
                         }
 
                         table {
@@ -153,12 +153,13 @@ public class HistoryServlet extends HttpServlet {
                         }
 
                         th {
-                            background: #111827;
+                            background: #0f172a;
                             color: white;
                             padding: 14px 12px;
                             text-align: center;
                             font-size: 13px;
                             white-space: nowrap;
+                            border-bottom: 1px solid #334155;
                         }
 
                         td {

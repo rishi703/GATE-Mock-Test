@@ -51,6 +51,10 @@ document.addEventListener("DOMContentLoaded", function () {
                         escapeHtml(displayName) +
                     '</span>' +
 
+                    '<a href="history" class="login-btn">' +
+                        'History' +
+                    '</a>' +
+
                     '<a href="./logout" ' +
                        'class="login-btn logout-btn">' +
                         'Logout' +
